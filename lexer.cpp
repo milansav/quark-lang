@@ -98,6 +98,7 @@ using namespace std;
 		case '7':
 		case '8':
 		case '9':
+		case '_':
 		/*case '!':
 		case '?':
 		case '.':

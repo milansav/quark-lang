@@ -10,7 +10,10 @@ int main()
 	{
 		string temp;
 		getline(cin, temp);
+		if(temp != "end;")
+		{
 		code += temp;
+		}
 		if (temp == "end;")
 		{
 			int char_array_size = code.length();
