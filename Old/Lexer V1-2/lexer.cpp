@@ -3,6 +3,8 @@
 #include <string>
 #include "lexer.h"
 
+//THIS LEXER IS A FOR OF SIMPLE C++ LEXER, AFTER THIS I STARTED OPTIMIZING IT AND CHANGING MOST OF C++ STUFF INTO C
+
 using namespace std;
 
 
