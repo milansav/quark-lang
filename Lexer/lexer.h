@@ -2,10 +2,8 @@
 #define LEXER_H_
 
 #include "token.h"
-#include "../util/util.h"
+#include "../dynarr/dynarr.h"
 #include <stdbool.h>
-
-struct dynarr darr;
 
 char* ptr;
 
@@ -18,7 +16,6 @@ void skip_comment_line();
 void skip_comment_block();
 
 struct token identifier();
-struct token keyword();
 struct token string_literal();
 struct token number_literal();
 struct token char_literal();

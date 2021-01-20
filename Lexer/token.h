@@ -6,7 +6,7 @@ typedef struct token{
     int type;
 } token;
 
-enum type{
+enum Type{
     IDENTIFIER,
     KEYWORD,
     STRING_LITERAL,
@@ -20,5 +20,4 @@ enum type{
     OPEN_CURLY,
     CLOSE_CURLY
 };
-
 #endif
