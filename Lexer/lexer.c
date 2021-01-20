@@ -9,8 +9,19 @@ dynarr* lexifyy(char* code)
 
     while(curr() != '\0')
     {
+        while(is_space(curr())) next();
+
         if(curr() == '/' && peek() == '/') skip_comment_line();
         if(curr() == '/' && peek() == '*') skip_comment_block();
+
+        if(is_operator(curr())) operator_literal();
+        else
+        if(is_number(curr())) number_literal();
+        else
+        if(curr() == '"') char_literal();
+        else
+        if(curr() == "\"") string_literal();
+        else other();
     }
 }
 
@@ -22,12 +33,23 @@ void skip_white_space()
 {
     while(is_space(curr())) next();
 }
-
 void skip_comment_line()
 {
     while(curr() != '\n') next();
 }
+void skip_comment_block()
+{
 
+}
+
+token identifier()
+{
+    struct token t;
+    char* start = (char*)curr();
+    while(is_identifier(curr())) next();
+    char* end = (char*)curr();
+    
+}
 
 bool is_space(char c)
 {
@@ -44,4 +66,8 @@ bool is_identifier(char c)
 bool is_keyword(char* c)
 {
     return (true);
+}
+bool is_operator(char c)
+{
+    return (!strcmp(c, '+') || !strcmp(c, '-') || !strcmp(c, '*') || !strcmp(c, '/') || !strcmp(c, '%') || !strcmp(c, '='));
 }

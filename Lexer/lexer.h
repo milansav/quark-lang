@@ -2,7 +2,10 @@
 #define LEXER_H_
 
 #include "token.h"
+#include "../util/util.h"
 #include <stdbool.h>
+
+struct dynarr darr;
 
 char* ptr;
 
@@ -26,4 +29,5 @@ bool is_space(char c);
 bool is_number(char c);
 bool is_identifier(char c);
 bool is_keyword(char* c);
+bool is_operator(char c);
 #endif
