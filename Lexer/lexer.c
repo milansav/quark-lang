@@ -50,10 +50,10 @@ void skip_comment_block()
 struct token identifier()
 {
     struct token t;
-    char* start = (char*)curr();
+    char* start = ptr;
     while(is_identifier(curr())) next();
-    char* end = (char*)curr();
-    t.label = (char*)malloc(sizeof(char) * (end-start));
+    char* end = ptr;
+    t.label = malloc(sizeof(char) * (end-start));
     strncpy(t.label, start, (end-start));
     if(is_keyword(t.label))
     {
@@ -67,7 +67,15 @@ struct token identifier()
 }
 struct token string_literal()
 {
-
+    struct token t;
+    next();
+    char* start = ptr;
+    while(peek() != '"') next();
+    char* end = ptr;
+    t.label = malloc(sizeof(char) * (end-start));
+    strncpy(t.label, start, (end-start));
+    t.type = STRING_LITERAL;
+    return t;
 }
 struct token number_literal()
 {
