@@ -7,6 +7,8 @@
 
 char* ptr;
 
+struct dynarr* lexify(char* code);
+
 char curr();
 char peek();
 void next();

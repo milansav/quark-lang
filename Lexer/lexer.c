@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-dynarr* lexifyy(char* code)
+dynarr* lexify(char* code)
 {
     ptr = code;
 
@@ -27,6 +27,8 @@ dynarr* lexifyy(char* code)
         else
         if(curr() == '"') add_token(tokens, string_literal());
         else other();
+
+        next();
     }
 }
 
@@ -44,7 +46,7 @@ void skip_comment_line()
 }
 void skip_comment_block()
 {
-
+    while(curr() != '*' && peek() != '/') next();
 }
 
 struct token identifier()
@@ -79,15 +81,33 @@ struct token string_literal()
 }
 struct token number_literal()
 {
-
+    struct token t;
+    char* start = ptr;
+    while(is_number(curr())) next();
+    char* end = ptr;
+    t.label = malloc(sizeof(char) * (end-start));
+    strncpy(t.label, start, (end-start));
+    t.type = NUMBER_LITERAL;
+    return t;
 }
 struct token char_literal()
 {
-
+    struct token t;
+    next();
+    char* start = ptr;
+    while(peek()  != '\'') next();
+    char* end = ptr;
+    t.label = malloc(sizeof(char) * (end-start));
+    strncpy(t.label, start, (end-start));
+    t.type = CHAR_LITERAL;
+    return t;
 }
 struct token operator_literal()
 {
-
+    struct token t;
+    char* start = ptr;
+    while(is_operator(curr())) next();
+    char* end = ptr;
 }
 struct token other()
 {
