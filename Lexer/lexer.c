@@ -30,6 +30,8 @@ dynarr* lexify(char* code)
 
         next();
     }
+
+    return tokens;
 }
 
 char curr(){ return *ptr;} 
@@ -72,7 +74,7 @@ struct token string_literal()
     struct token t;
     next();
     char* start = ptr;
-    while(peek() != '"') next();
+    while(curr() != '"') next();
     char* end = ptr;
     t.label = malloc(sizeof(char) * (end-start));
     strncpy(t.label, start, (end-start));
@@ -95,7 +97,7 @@ struct token char_literal()
     struct token t;
     next();
     char* start = ptr;
-    while(peek()  != '\'') next();
+    while(curr()  != '\'') next();
     char* end = ptr;
     t.label = malloc(sizeof(char) * (end-start));
     strncpy(t.label, start, (end-start));
