@@ -26,7 +26,7 @@ dynarr* lexify(char* code)
         if(curr() == '\'') add_token(tokens, char_literal());
         else
         if(curr() == '"') add_token(tokens, string_literal());
-        else other();
+        else add_token(tokens, other());
 
         next();
     }
@@ -117,7 +117,35 @@ struct token operator_literal()
 }
 struct token other()
 {
-
+    struct token t;
+    char* start = ptr;
+    switch(curr())
+    {
+        case '{':
+            t.type = OPEN_CURLY;
+        break;
+        case '}':
+            t.type = CLOSE_CURLY;
+        break;
+        case '(':
+            t.type = OPEN_BRACKET;
+        break;
+        case ')':
+            t.type = CLOSE_BRACKET;
+        break;
+        case ';':
+            t.type = SEMICOLON;
+        break;
+        case ',':
+            t.type = COMMA;
+        break;
+        case '.':
+            t.type = DOT;
+        break;
+    }
+    t.label = malloc(1);
+    strncpy(t.label, start, 1);
+    return t;
 }
 
 bool is_space(char c)
@@ -134,7 +162,7 @@ bool is_identifier(char c)
 }
 bool is_keyword(char* c)
 {
-    return (!strcmp(c, "if") || !strcmp(c, "else"));
+    return (!strcmp(c, "if") || !strcmp(c, "else") || !strcmp(c, "return") || !strcmp(c, "void"));
 }
 bool is_operator(char c)
 {

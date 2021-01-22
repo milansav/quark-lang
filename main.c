@@ -3,7 +3,7 @@
 #include "dynarr/dynarr.h"
 #include "Lexer/lexer.h"
 
-char* type_keyword[] = {"IDENTIFIER", "KEYWORD", "STRING_LITERAL", "NUMBER_LITERAL", "CHAR_LITERAL", "OPERATOR", "SEMICOLON", "COMMA", "OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_CURLY", "CLOSE_CURLY"};
+char* type_keyword[] = {"IDENTIFIER", "KEYWORD", "STRING_LITERAL", "NUMBER_LITERAL", "CHAR_LITERAL", "OPERATOR", "SEMICOLON", "COMMA", "DOT", "OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_CURLY", "CLOSE_CURLY"};
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 
     struct dynarr *arr = lexify(code);
 
-    for(uint i = 0; i < arr->count; i++)
+    for(uint i = 0; i < arr->count-1; i++)
     {
         printf("Type: %s. Label: %s\n", type_keyword[arr->token_arr[i].type], arr->token_arr[i].label);
     }

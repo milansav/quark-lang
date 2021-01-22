@@ -15,6 +15,7 @@ enum Type{
     OPERATOR,
     SEMICOLON,
     COMMA,
+    DOT,
     OPEN_BRACKET,
     CLOSE_BRACKET,
     OPEN_CURLY,
