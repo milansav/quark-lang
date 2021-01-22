@@ -1,2 +1,2 @@
-Hello World Yes 29 "Hello World"
-if else
+Hello World '\"' Yes 29 "Hello World"
+if else 'A' + - * / % == 

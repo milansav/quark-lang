@@ -110,6 +110,10 @@ struct token operator_literal()
     char* start = ptr;
     while(is_operator(curr())) next();
     char* end = ptr;
+    t.label = malloc(sizeof(char) * (end-start));
+    strncpy(t.label, start, (end-start));
+    t.type = OPERATOR;
+    return t;
 }
 struct token other()
 {
@@ -134,5 +138,5 @@ bool is_keyword(char* c)
 }
 bool is_operator(char c)
 {
-    return c == '+' || c == '-' || c == '*' || c == '/' || c == '%' || c == '=';
+    return (c == '+') || (c == '-') || (c == '*') || (c == '/') || (c == '%') || (c == '=');
 }

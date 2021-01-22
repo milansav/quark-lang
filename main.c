@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     printf("Size of the file %dbytes\n", (end-start));
     char* code = malloc(end-start);
     fread(code, 1, end-start, fp);
-    printf("%s", code);
+    printf("%s\n", code);
 
     struct dynarr *arr = lexify(code);
 
