@@ -15,6 +15,8 @@ dynarr* lexify(char* code)
     {
         while(is_space(curr())) next();
 
+        printf("Curr: %c\n", curr());
+
         if(curr() == '/' && peek() == '/') skip_comment_line();
         if(curr() == '/' && peek() == '*') skip_comment_block();
 
@@ -57,8 +59,8 @@ struct token identifier()
 {
     struct token t;
     char* start = ptr;
-    while(is_identifier(curr())) next();
-    char* end = ptr;
+    while(is_identifier(peek())) next();
+    char* end = ptr+1;
     t.label = malloc(sizeof(char) * (end-start));
     strncpy(t.label, start, (end-start));
     if(is_keyword(t.label))
