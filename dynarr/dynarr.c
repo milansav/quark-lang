@@ -1,5 +1,5 @@
 #include "dynarr.h"
-#include "../Lexer/token.h"
+#include "../lexer/token.h"
 #include <stdlib.h>
 
 void arr_construct(struct dynarr* darr)

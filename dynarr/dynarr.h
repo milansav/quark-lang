@@ -1,7 +1,7 @@
 #ifndef DYNARR_H
 #define DYNARR_H
 
-#include "../Lexer/token.h"
+#include "../lexer/token.h"
 #include <stdlib.h>
 
 typedef struct dynarr {
