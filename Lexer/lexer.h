@@ -29,4 +29,6 @@ bool is_number(char c);
 bool is_identifier(char c);
 bool is_keyword(char* c);
 bool is_operator(char c);
+bool is_other(char c);
+bool eof(char c);
 #endif

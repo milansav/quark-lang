@@ -2,6 +2,7 @@
 #include "lexer.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 dynarr* lexify(char* code)
 {
@@ -10,7 +11,7 @@ dynarr* lexify(char* code)
     dynarr* tokens = (dynarr*)malloc(sizeof(dynarr));
     arr_construct(tokens);
 
-    while(curr() != '\0')
+    while(!eof(curr()))
     {
         while(is_space(curr())) next();
 
@@ -26,16 +27,17 @@ dynarr* lexify(char* code)
         if(curr() == '\'') add_token(tokens, char_literal());
         else
         if(curr() == '"') add_token(tokens, string_literal());
-        else add_token(tokens, other());
+        else
+        if(is_other(curr())) add_token(tokens, other());
 
-        next();
+        next(); //To future me: never ever don't you even think about removing this one... unless you want to wait for a few minutes to reboot your pc ofc
     }
 
     return tokens;
 }
 
 char curr(){ return *ptr;} 
-char peek(){ return *ptr+1;}
+char peek(){ return *(ptr+1);}
 void next(){ ptr++;}
 
 void skip_white_space()
@@ -150,7 +152,7 @@ struct token other()
 
 bool is_space(char c)
 {
-    return c == '\n' || c == '\t' || c == ' ' || c == '\r';
+    return c == '\n' || c == '\t' || c == ' ';
 }
 bool is_number(char c)
 {
@@ -167,4 +169,12 @@ bool is_keyword(char* c)
 bool is_operator(char c)
 {
     return (c == '+') || (c == '-') || (c == '*') || (c == '/') || (c == '%') || (c == '=');
+}
+bool is_other(char c)
+{
+    return (c == '{') || (c == '}') || (c == '(') || (c == ')') || (c == ';') || (c == ',') || (c == '.');
+}
+bool eof(char c)
+{
+    return c == '\0';
 }

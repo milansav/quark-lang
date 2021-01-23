@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 
     struct dynarr *arr = lexify(code);
 
-    for(uint i = 0; i < arr->count-1; i++)
+    for(uint i = 0; i < arr->count; i++)
     {
         printf("Type: %s. Label: %s\n", type_keyword[arr->token_arr[i].type], arr->token_arr[i].label);
     }

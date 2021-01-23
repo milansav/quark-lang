@@ -1,2 +1,5 @@
-Hello World '\"' Yes 29 "Hello World"
-if else 'A' + - * / % == ( ) { } ; , . . . . yeet
+command; more text
+//comment
+text
+//more comment
+{}();,.
