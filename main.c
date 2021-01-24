@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <malloc.h>
 #include "dynarr/dynarr.h"
-#include "Lexer/lexer.h"
+#include "lexer/lexer.h"
 
 char* type_keyword[] = {"IDENTIFIER", "KEYWORD", "STRING_LITERAL", "NUMBER_LITERAL", "CHAR_LITERAL", "OPERATOR", "SEMICOLON", "COMMA", "DOT", "OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_CURLY", "CLOSE_CURLY"};
 
