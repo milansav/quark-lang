@@ -18,6 +18,7 @@ enum Type{
 
 typedef struct statement_node{
     int size;
+    int type;
     struct statement_node** nodes;
 } statement_node;
 
@@ -63,11 +64,13 @@ typedef struct branch_node {
 } branch_node;
 
 typedef struct bin_op_node{
-
+    int op;
+    void* head;
+    void* body;
 } bin_op_node;
 
 typedef struct no_op_node{
-
+    void* head;
 } no_op_node;
 
 #endif
