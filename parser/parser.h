@@ -6,7 +6,14 @@
 #include "node.h"
 #include "../dynarr/dynarr.h"
 #include "../lexer/token.h"
+#include <string.h>
 
-struct AST* parse(struct dynarr* darr);
+struct dynarr* darr;
+uint currentToken;
+
+struct AST* parse(struct dynarr* _darr);
+void keyword();
+void function();
+void branch();
 
 #endif

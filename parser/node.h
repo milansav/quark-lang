@@ -2,6 +2,7 @@
 #define NODE_H
 
 typedef struct variable_node variable_node;
+typedef struct bin_op_node bin_op_node;
 
 enum Type{
     FUNCTION,
@@ -15,6 +16,9 @@ enum Type{
     BIN_OP,
     NO_OP
 };
+typedef struct program_node{
+
+} program_node;
 
 typedef struct statement_node{
     int size;

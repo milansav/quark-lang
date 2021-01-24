@@ -1,13 +1,30 @@
 #include "parser.h"
 
-AST* parse(struct dynarr* darr)
+AST* parse(struct dynarr* _darr)
 {
-    for(uint i = 0; i < darr->count; i++)
+    darr = _darr;
+
+    for(currentToken = 0; currentToken < darr->count; currentToken++)
     {
-        struct token _t = darr->token_arr[i];
-        switch(_t.type)
+        switch(darr->token_arr[currentToken].type)
         {
             case KEYWORD:
+                keyword();
+            break;
         }
     }
+}
+
+void keyword()
+{
+    char* label = darr->token_arr[currentToken].label;
+    if(!strcmp(label, "void")) function();
+    else
+    if(!strcmp(label, "if"));
+    else
+    if(!strcmp(label, "else"));
+    else
+    if(!strcmp(label, "return"));
+    else
+    if(!strcmp(label, "int"));
 }
