@@ -15,5 +15,7 @@ struct AST* parse(struct dynarr* _darr);
 void keyword();
 void function();
 void branch();
+void _return();
+void declare();
 
 #endif
