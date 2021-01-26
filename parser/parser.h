@@ -10,7 +10,6 @@
 
 struct dynarr* darr;
 struct AST* tree;
-uint currentToken;
 
 struct statement_sequence_node* current_scope;
 

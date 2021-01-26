@@ -8,14 +8,16 @@ AST* parse_code(struct dynarr* _darr)
 {
     darr = _darr;
     ptr = darr->token_arr;
-
+    struct AST ast;
+    struct program_node p_n;
+    ast.program = &p_n;
 }
 
 void parse()
 {
     while((ptr+1) != NULL)
     {
-        switch(darr->token_arr[currentToken].type)
+        switch(curr().type)
         {
             case KEYWORD:
                 keyword();
@@ -27,7 +29,7 @@ void parse()
 
 void keyword()
 {
-    char* label = darr->token_arr[currentToken].label;
+    char* label = curr().label;
     if(!strcmp(label, "void")) function();
     else
     if(!strcmp(label, "if")) branch();
