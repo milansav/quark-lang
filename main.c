@@ -2,6 +2,7 @@
 #include <malloc.h>
 #include "dynarr/dynarr.h"
 #include "lexer/lexer.h"
+#include "parser/parser.h"
 
 char* type_keyword[] = {"IDENTIFIER", "KEYWORD", "STRING_LITERAL", "NUMBER_LITERAL", "CHAR_LITERAL", "OPERATOR", "SEMICOLON", "COMMA", "DOT", "OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_CURLY", "CLOSE_CURLY"};
 
@@ -25,6 +26,8 @@ int main(int argc, char *argv[])
         printf("Type: %s. Label: %s\n", type_keyword[arr->token_arr[i].type], arr->token_arr[i].label);
     }
 
-    free(code);
+    parse_code(arr);
+
+    //free(code);
     return 0;
 }

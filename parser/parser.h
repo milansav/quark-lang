@@ -7,17 +7,18 @@
 #include "../dynarr/dynarr.h"
 #include "../lexer/token.h"
 #include <string.h>
+#include <stdio.h>
 
 struct dynarr* darr;
 struct AST* tree;
 
 struct statement_sequence_node* current_scope;
 
-void* ptr;
+struct token* n_ptr;
 
-struct token curr();
-struct token peek();
-void next();
+struct token curr_n();
+struct token peek_n();
+void next_n();
 
 struct AST* parse_code(struct dynarr* _darr);
 

@@ -1,35 +1,33 @@
 #include "parser.h"
 
-struct token curr(){ return *(token*)ptr; }
-struct token peek(){ return *(token*)(ptr+1);}
-void next(){ptr++;}
+struct token curr_n(){ return *(token*)n_ptr; }
+struct token peek_n(){ return *(token*)(n_ptr+1);}
+void next_n(){n_ptr++;}
 
 AST* parse_code(struct dynarr* _darr)
 {
     darr = _darr;
-    ptr = darr->token_arr;
-    struct AST ast;
-    struct program_node p_n;
-    ast.program = &p_n;
+    n_ptr = _darr->token_arr;
+    struct AST* ast;
+    struct program_node program;
+    ast->program = &program;
+    current_scope = program.body;
+
+    parse();
 }
 
 void parse()
 {
-    while((ptr+1) != NULL)
+    for(uint i = 0; i < darr->count; i++)
     {
-        switch(curr().type)
-        {
-            case KEYWORD:
-                keyword();
-            break;
-        }
-        next();
+        printf("%s", n_ptr->label);
+        n_ptr++;
     }
 }
 
 void keyword()
 {
-    char* label = curr().label;
+    char* label = curr_n().label;
     if(!strcmp(label, "void")) function();
     else
     if(!strcmp(label, "if")) branch();
@@ -44,6 +42,21 @@ void keyword()
 void function()
 {
     function_node function;
-    function.name = malloc(sizeof(peek().label));
-    function.name = peek().label;
+    function.name = malloc(sizeof(peek_n().label));
+    function.name = peek_n().label;
+}
+
+void branch()
+{
+
+}
+
+void _return()
+{
+
+}
+
+void declare()
+{
+
 }
