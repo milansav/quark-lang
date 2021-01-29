@@ -20,13 +20,13 @@ enum node_type{
     NO_OP
 };
 typedef struct program_node{
-    struct statement_sequence_node* body;
-    struct statement_sequence_node* head;
+    struct nodearr* body;
+    struct nodearr* head;
 } program_node;
 
 typedef struct statement_sequence_node{
     int size;
-    struct statement_node** nodes;
+    struct nodearr* nodes;
 } statement_sequence_node;
 
 typedef struct statement_node{
@@ -48,7 +48,7 @@ typedef struct statement_node{
 typedef struct function_node{
     char* name;
     struct statement_sequence_node* body;
-    struct variable_node** head;
+    struct variable_node* head;
 } function_node;
 
 typedef struct variable_node{

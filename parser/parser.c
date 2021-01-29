@@ -11,7 +11,8 @@ AST* parse_code(struct dynarr* _darr)
     struct AST* ast;
     struct program_node program;
     ast->program = &program;
-    current_scope = program.body;
+    n_arr_construct(program.body);
+    n_arr_construct(program.head);
 
     parse();
 }
@@ -41,9 +42,19 @@ void keyword()
 
 void function()
 {
-    function_node function;
-    function.name = malloc(sizeof(peek_n().label));
-    function.name = peek_n().label;
+    struct function_node function;
+    n_ptr++;
+    function.name = malloc(strlen(n_ptr->label));
+    function.name = n_ptr->label;
+    n_arr_construct(function.body->nodes);
+    n_ptr++;
+    
+    while(n_ptr->type != CLOSE_BRACKET)
+    {
+
+        
+        n_ptr++;
+    }
 }
 
 void branch()

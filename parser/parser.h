@@ -2,6 +2,7 @@
 #define PARSER_H
 
 #include "parser.h"
+#include "nodearr.h"
 #include "tree.h"
 #include "node.h"
 #include "../dynarr/dynarr.h"
