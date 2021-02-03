@@ -28,6 +28,6 @@ int main(int argc, char *argv[])
 
     parse_code(arr);
 
-    //free(code);
+    free(code);
     return 0;
 }

@@ -1,7 +1,4 @@
-command{} ; more text
-//comment
-text
-//more comment
-{}();,.
-command 24
-"String" 'char'
+//Parser test
+int a = 5;
+int b = 10;
+string c = "Hello World";

@@ -89,8 +89,8 @@ struct token number_literal()
 {
     struct token t;
     char* start = ptr;
-    while(is_number(curr())) next();
-    char* end = ptr;
+    while(is_number(peek())) next();
+    char* end = ptr+1;
     t.label = malloc(sizeof(char) * (end-start));
     strncpy(t.label, start, (end-start));
     t.type = NUMBER_LITERAL;

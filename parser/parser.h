@@ -1,34 +1,35 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include "parser.h"
-#include "nodearr.h"
-#include "tree.h"
 #include "node.h"
-#include "../dynarr/dynarr.h"
+#include "sttmntarr.h"
 #include "../lexer/token.h"
-#include <string.h>
-#include <stdio.h>
+#include "../dynarr/dynarr.h"
 
 struct dynarr* darr;
-struct AST* tree;
-
-struct statement_sequence_node* current_scope;
-
-struct token* n_ptr;
+struct token* t_ptr;
 
 struct token curr_n();
 struct token peek_n();
 void next_n();
 
-struct AST* parse_code(struct dynarr* _darr);
+typedef struct program{
+    struct sttmntarr* body;
+    struct sttmntarr* head;
+} program;
 
-void parse();
+
+typedef struct AST {
+    struct program* body;
+} AST;
+
+struct AST* parse_code(struct dynarr* _darr);
 
 void keyword();
 void function();
-void branch();
-void _return();
 void declare();
+
+struct AST* tree;
+struct sttmntarr* current_scope;
 
 #endif

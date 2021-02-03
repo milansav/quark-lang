@@ -1,73 +1,75 @@
 #include "parser.h"
+#include <stdio.h>
+#include <string.h>
 
-struct token curr_n(){ return *(token*)n_ptr; }
-struct token peek_n(){ return *(token*)(n_ptr+1);}
-void next_n(){n_ptr++;}
+struct token curr_n()
+{
+    if(t_ptr != NULL)
+    {
+        return *t_ptr;
+    }
+}
+
+struct token peek_n()
+{
+    if(t_ptr+1)
+    {
+        return *(t_ptr+1);
+    }
+}
+
+void next_n()
+{
+    if(t_ptr+1)
+    {
+        t_ptr++;
+    }
+}
 
 AST* parse_code(struct dynarr* _darr)
 {
+    tree = malloc(sizeof(AST));
     darr = _darr;
-    n_ptr = _darr->token_arr;
-    struct AST* ast;
-    struct program_node program;
-    ast->program = &program;
-    n_arr_construct(program.body);
-    n_arr_construct(program.head);
+    t_ptr = darr->token_arr;
+    tree->body = malloc(sizeof(program));
+    tree->body->body = malloc(sizeof(sttmntarr));
+    construct(tree->body->body);
+    current_scope = tree->body->body;
+    //tree->body->head = malloc(sizeof(sttmntarr)); //Malloc parameters
+    //construct(tree->body->head); //Parameters
 
-    parse();
-}
-
-void parse()
-{
-    for(uint i = 0; i < darr->count; i++)
+    for(int i = 0; i < darr->count; i++, next_n())
     {
-        printf("%s", n_ptr->label);
-        n_ptr++;
+        switch(darr->token_arr[i].type)
+        {
+            case KEYWORD:
+                keyword();
+            break;
+        }
+        printf("%s\n", darr->token_arr[i].label);
     }
 }
 
 void keyword()
 {
-    char* label = curr_n().label;
-    if(!strcmp(label, "void")) function();
-    else
-    if(!strcmp(label, "if")) branch();
-    //else
-    //if(!strcmp(label, "else"));
-    else
-    if(!strcmp(label, "return")) _return();
-    else
-    if(!strcmp(label, "int")) declare();
-}
-
-void function()
-{
-    struct function_node function;
-    n_ptr++;
-    function.name = malloc(strlen(n_ptr->label));
-    function.name = n_ptr->label;
-    n_arr_construct(function.body->nodes);
-    n_ptr++;
-    
-    while(n_ptr->type != CLOSE_BRACKET)
+    if(!strcmp("void", curr_n().label))
     {
-
-        
-        n_ptr++;
+        function();
+    }
+    else
+    if(!strcmp("int", curr_n().label))
+    {
+        declare();
     }
 }
 
-void branch()
-{
-
-}
-
-void _return()
+void function()
 {
 
 }
 
 void declare()
 {
-
+    printf("Declaring a variable\n");
+    struct variable* var = malloc(sizeof(variable));
 }
