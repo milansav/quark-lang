@@ -26,7 +26,11 @@ typedef struct variable{
 
 typedef struct statement{
     int type;
-
+    union node
+    {
+        struct constant* _const;
+        struct variable* _var;
+    };
 } statement;
 
 #endif

@@ -4,26 +4,17 @@
 
 struct token curr_n()
 {
-    if(t_ptr != NULL)
-    {
-        return *t_ptr;
-    }
+    if(t_ptr != NULL) return *t_ptr;
 }
 
 struct token peek_n()
 {
-    if(t_ptr+1)
-    {
-        return *(t_ptr+1);
-    }
+    if(t_ptr+1) return *(t_ptr+1);
 }
 
 void next_n()
 {
-    if(t_ptr+1)
-    {
-        t_ptr++;
-    }
+    if(t_ptr+1) t_ptr++;
 }
 
 AST* parse_code(struct dynarr* _darr)
@@ -52,24 +43,11 @@ AST* parse_code(struct dynarr* _darr)
 
 void keyword()
 {
-    if(!strcmp("void", curr_n().label))
+    if(!strcmp("void", curr_n().label)) //void shit(){} | void shit();
     {
-        function();
+        if(t_ptr+4)
+        {
+
+        }
     }
-    else
-    if(!strcmp("int", curr_n().label))
-    {
-        declare();
-    }
-}
-
-void function()
-{
-
-}
-
-void declare()
-{
-    printf("Declaring a variable\n");
-    struct variable* var = malloc(sizeof(variable));
 }

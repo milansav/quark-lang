@@ -25,9 +25,15 @@ typedef struct AST {
 
 struct AST* parse_code(struct dynarr* _darr);
 
+//Different statement types
 void keyword();
-void function();
-void declare();
+void declaration();
+void initialization();
+void definition();
+void _return();
+void conditional();
+void loop();
+void expression();
 
 struct AST* tree;
 struct sttmntarr* current_scope;

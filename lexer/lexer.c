@@ -1,8 +1,10 @@
 #include "../dynarr/dynarr.h"
+#include "../utils/keywords.h"
 #include "lexer.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+
 
 dynarr* lexify(char* code)
 {
@@ -166,7 +168,11 @@ bool is_identifier(char c)
 }
 bool is_keyword(char* c)
 {
-    return (!strcmp(c, "if") || !strcmp(c, "else") || !strcmp(c, "return") || !strcmp(c, "void") || !strcmp(c, "int"));
+    for(int i = 0; i < strlen(keywords); i++)
+    {
+        if(!strcmp(c, keywords[i])) return true;
+    }
+    return false;
 }
 bool is_operator(char c)
 {
