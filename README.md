@@ -1,9 +1,9 @@
 # quark-lang
 ![alt text](https://github.com/milansav/quark-lang/blob/main/raw/logo.png "logo.png")
 <br>
-## **Quark** is a low-level compiled programming-language<br>
+## **Quark** is a low-level compiled programming-language <br>
 <br>
-### What is left to do: <br>
+## What is left to do: <br>
 <br>
 1. Parser <br>
 2. Preprocessor <br>
