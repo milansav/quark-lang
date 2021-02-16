@@ -6,8 +6,8 @@
 ### What is left to do:
 ⋅⋅1. Parser
 ⋅⋅2. Preprocessor
-⋅⋅⋅⋅*. Checking if any undeclared variables, functions exist
-⋅⋅⋅⋅*. Macros
+⋅⋅⋅⋅* Checking if any undeclared variables, functions exist
+⋅⋅⋅⋅* Macros
 ⋅⋅3. Compiler
-⋅⋅⋅⋅*. Compiler itself
-⋅⋅⋅⋅*. Labeler for functions, ifs, loops
+⋅⋅⋅⋅* Compiler itself
+⋅⋅⋅⋅* Labeler for functions, ifs, loops
