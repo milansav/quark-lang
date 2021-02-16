@@ -3,7 +3,8 @@
 <br>
 ## **Quark** is a low-level compiled programming-language<br>
 <br>
-### What is left to do:
+### What is left to do: <br>
+<br>
 ⋅⋅1. Parser
 ⋅⋅2. Preprocessor
 ⋅⋅⋅⋅* Checking if any undeclared variables, functions exist
