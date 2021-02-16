@@ -9,6 +9,7 @@ What is left to do: <br>
 2. Preprocessor <br>
   * Checking if any undeclared variables, functions exist <br>
   * Macros <br>
+  * Linker <br>
 3. Compiler <br>
   * Compiler itself <br>
   * Labeler for functions, ifs, loops <br>
