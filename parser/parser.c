@@ -19,6 +19,8 @@ void next_n()
 
 AST* parse_code(struct dynarr* _darr)
 {
+    construct_table(&vars);
+
     tree = malloc(sizeof(AST));
     darr = _darr;
     t_ptr = darr->token_arr;
@@ -43,11 +45,26 @@ AST* parse_code(struct dynarr* _darr)
 
 void keyword()
 {
-    if(!strcmp("void", curr_n().label)) //void shit(){} | void shit();
+    if(!strcmp("int", curr_n().label)) //void shit(){} | void shit();
     {
-        if(t_ptr+4)
-        {
+        declaration();
+    }
+}
 
-        }
+void declaration() //int a; || int a = 10;
+{
+    struct variable* var;
+    next_n();
+    char* label = curr_n().label; //This looks ugly but I'm lazy
+    var->label = label;
+    add(var,&vars);
+    next_n();
+    if(!strcmp(curr_n().label, ";"))
+    {
+        return;
+    }
+    else
+    {
+        
     }
 }

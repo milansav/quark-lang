@@ -5,6 +5,7 @@
 #include "sttmntarr.h"
 #include "../lexer/token.h"
 #include "../dynarr/dynarr.h"
+#include "../utils/vartable.h"
 
 struct dynarr* darr;
 struct token* t_ptr;
@@ -12,6 +13,8 @@ struct token* t_ptr;
 struct token curr_n();
 struct token peek_n();
 void next_n();
+
+struct table vars;
 
 typedef struct program{
     struct sttmntarr* body;

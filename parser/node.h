@@ -20,9 +20,25 @@ typedef struct constant{
 } constant;
 
 typedef struct variable{
-    char* label;
     int value;
+    char* label;
 } variable;
+
+typedef struct assign{
+    int leftType;
+    union left
+    {
+        struct variable* _var;
+        struct constant* _const;
+    };
+
+    int rightType;
+    union right
+    {
+        struct variable* _var;
+        struct constant* _const;
+    };
+} assign;
 
 typedef struct statement{
     int type;
@@ -32,5 +48,6 @@ typedef struct statement{
         struct variable* _var;
     };
 } statement;
+
 
 #endif
