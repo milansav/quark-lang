@@ -1,4 +1,7 @@
 #include "vartable.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 void construct_table(struct table* tbl)
 {
@@ -9,6 +12,7 @@ void construct_table(struct table* tbl)
 
 void add(struct variable* var, struct table* tbl)
 {
+    printf("Adding to vartable\n");
     for(int i = 0; i < tbl->count; i++)
     {
         if(!strcmp(tbl->variables[i].label, var->label))

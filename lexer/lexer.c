@@ -168,7 +168,7 @@ bool is_identifier(char c)
 }
 bool is_keyword(char* c)
 {
-    for(int i = 0; i < strlen(keywords); i++)
+    for(int i = 0; i < (sizeof(keywords)/sizeof(char*)); i++)
     {
         if(!strcmp(c, keywords[i])) return true;
     }

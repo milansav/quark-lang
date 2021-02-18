@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
         printf("Type: %s. Label: %s\n", type_keyword[arr->token_arr[i].type], arr->token_arr[i].label);
     }
 
-    parse_code(arr);
+    AST* tree = parse_code(arr);
 
     free(code);
     return 0;

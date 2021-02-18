@@ -41,11 +41,13 @@ AST* parse_code(struct dynarr* _darr)
         }
         printf("%s\n", darr->token_arr[i].label);
     }
+
+    return tree;
 }
 
 void keyword()
 {
-    if(!strcmp("int", curr_n().label)) //void shit(){} | void shit();
+    if(!strcmp("byte", curr_n().label))
     {
         declaration();
     }
@@ -53,18 +55,17 @@ void keyword()
 
 void declaration() //int a; || int a = 10;
 {
-    struct variable* var;
-    next_n();
+    printf("Declaring an byte\n");
+    struct variable* var = malloc(sizeof(variable));
+    next_n(); //a
     char* label = curr_n().label; //This looks ugly but I'm lazy
     var->label = label;
     add(var,&vars);
-    next_n();
+    next_n(); //; || =
     if(!strcmp(curr_n().label, ";"))
+    {}
+    else if(!strcmp(curr_n().label, "="))
     {
-        return;
-    }
-    else
-    {
-        
+        struct assign* asgn = malloc(sizeof(assign));
     }
 }
