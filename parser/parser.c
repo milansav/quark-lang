@@ -40,7 +40,10 @@ AST* parse_code(struct dynarr* _darr)
                 keyword();
             break;
         }
+        if(debug_mode & OUTPUT_LEXER)
+        {
         printf("%s\n", darr->token_arr[i].label);
+        }
     }
 
     return tree;

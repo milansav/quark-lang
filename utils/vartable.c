@@ -13,17 +13,18 @@ void construct_table(struct table* tbl)
 
 void add(struct variable* var, struct table* tbl)
 {
-    if(debug_mode & OUTPUT_PARSER || debug_mode & OUTPUT_ALL)
-    {
-    printf("Adding to vartable\n");
-    }
 
     if(get(var->label, tbl) != NULL)
     {
         if(debug_mode == 0 || debug_mode & OUTPUT_ALL || debug_mode & OUTPUT_PARSER)
         {
-        printf("Warning!! Variable with this name (\"%s\") already declared!\n", var->label);
+        printf(COLOR_YELLOW "Warning!!" COLOR_RESET " Variable with this name " COLOR_YELLOW "(\"%s\")" COLOR_RESET " already declared!\n", var->label);
         }
+    }
+
+    if(debug_mode & OUTPUT_PARSER || debug_mode & OUTPUT_ALL)
+    {
+    printf(COLOR_CYAN "Adding to vartable\n" COLOR_RESET);
     }
     
 	if(tbl->count >= tbl->size)

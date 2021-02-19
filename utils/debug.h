@@ -12,4 +12,12 @@ int debug_mode;
 #define OUTPUT_PREPROCESSOR     32  //Output from preprocessor
 #define OUTPUT_LINKER           64  //Output from linker
 
+#define COLOR_RED     "\e[31m"
+#define COLOR_GREEN   "\e[32m"
+#define COLOR_YELLOW  "\e[33m"
+#define COLOR_BLUE    "\e[34m"
+#define COLOR_MAGENTA "\e[35m"
+#define COLOR_CYAN    "\e[36m"
+#define COLOR_RESET   "\e[0m"
+
 #endif
