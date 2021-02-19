@@ -20,7 +20,8 @@ void next_n()
 
 AST* parse_code(struct dynarr* _darr)
 {
-    construct_table(&vars);
+    vars = malloc(sizeof(table));
+    construct_table(vars);
 
     tree = malloc(sizeof(AST));
     darr = _darr;
@@ -32,7 +33,7 @@ AST* parse_code(struct dynarr* _darr)
     //tree->body->head = malloc(sizeof(sttmntarr)); //Malloc parameters
     //construct(tree->body->head); //Parameters
 
-    for(int i = 0; i < darr->count; i++, next_n())
+    for(int i = 0; i < darr->count; i++, next_n()) //Use t_ptr instead of i
     {
         switch(darr->token_arr[i].type)
         {
@@ -61,23 +62,11 @@ void declaration() //int a; || int a = 10;
 {
     if(debug_mode & OUTPUT_PARSER || debug_mode & OUTPUT_ALL)
     {
-    printf("Declaring an byte\n");
+    printf("Declaring a byte\n");
     }
     
     struct variable* var = malloc(sizeof(variable));
-    var->label = (t_ptr+1)->label;
-    add(var,&vars);
-    if(!strcmp((t_ptr+2)->label, ";"))
-    {}
-    else if(!strcmp((t_ptr+2)->label, "="))
-    {
-        struct assign* asgn = malloc(sizeof(assign));
+    var->label = curr_n().label;
+    add(var, vars);
 
-        if(debug_mode & OUTPUT_PARSER || debug_mode & OUTPUT_ALL)
-        {
-            printf("Assigning values\n");
-        }
-
-
-    }
 }

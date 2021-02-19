@@ -1,3 +1,4 @@
 byte a;
 byte a;
 byte b = a;
+byte b = c;

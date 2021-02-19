@@ -16,15 +16,12 @@ void add(struct variable* var, struct table* tbl)
 
     if(get(var->label, tbl) != NULL)
     {
-        if(debug_mode == 0 || debug_mode & OUTPUT_ALL || debug_mode & OUTPUT_PARSER)
-        {
         printf(COLOR_YELLOW "Warning!!" COLOR_RESET " Variable with this name " COLOR_YELLOW "(\"%s\")" COLOR_RESET " already declared!\n", var->label);
-        }
     }
 
     if(debug_mode & OUTPUT_PARSER || debug_mode & OUTPUT_ALL)
     {
-    printf(COLOR_CYAN "Adding to vartable\n" COLOR_RESET);
+    printf(COLOR_CYAN "Adding to vartable" COLOR_RESET "\n");
     }
     
 	if(tbl->count >= tbl->size)
@@ -45,4 +42,6 @@ struct variable* get(char* name, struct table* tbl)
             return &tbl->variables[i];
         }
     }
+
+    return NULL;
 }

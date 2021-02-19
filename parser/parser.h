@@ -17,7 +17,7 @@ struct token curr_n();
 struct token peek_n();
 void next_n();
 
-struct table vars;
+struct table* vars;
 
 typedef struct program{
     struct sttmntarr* body;
