@@ -18,11 +18,9 @@ void next_n()
     if(t_ptr+1) t_ptr++;
 }
 
-AST* parse_code(struct dynarr* _darr, int _debug_mode)
+AST* parse_code(struct dynarr* _darr)
 {
     construct_table(&vars);
-
-    debug_mode = _debug_mode;
 
     tree = malloc(sizeof(AST));
     darr = _darr;

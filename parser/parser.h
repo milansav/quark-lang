@@ -6,6 +6,9 @@
 #include "../lexer/token.h"
 #include "../dynarr/dynarr.h"
 #include "../utils/vartable.h"
+#include "../utils/debug.h"
+#include <stdio.h>
+#include <string.h>
 
 struct dynarr* darr;
 struct token* t_ptr;
@@ -15,8 +18,6 @@ struct token peek_n();
 void next_n();
 
 struct table vars;
-
-int debug_mode;
 
 typedef struct program{
     struct sttmntarr* body;
@@ -28,7 +29,7 @@ typedef struct AST {
     struct program* body;
 } AST;
 
-struct AST* parse_code(struct dynarr* _darr, int _debug_mode);
+struct AST* parse_code(struct dynarr* _darr);
 
 //Different statement types
 void keyword();

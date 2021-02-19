@@ -8,6 +8,7 @@ typedef struct table {
     int count;
     struct variable* variables;
 } table;
+
 void construct_table(struct table* tbl);
 void add(struct variable* var, struct table* tbl);
 struct variable* get(char* name, struct table* tbl);

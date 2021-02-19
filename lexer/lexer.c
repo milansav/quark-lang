@@ -1,13 +1,13 @@
+#include "lexer.h"
+#include "token.h"
 #include "../dynarr/dynarr.h"
 #include "../utils/keywords.h"
 #include "../utils/debug.h"
-#include "lexer.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 
-
-dynarr* lexify(char* code, int debug_mode)
+dynarr* lexify(char* code)
 {
     ptr = code;
 

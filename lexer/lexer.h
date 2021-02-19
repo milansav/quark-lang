@@ -1,13 +1,11 @@
 #ifndef LEXER_H
-#define LEXER_H_
+#define LEXER_H
 
-#include "token.h"
-#include "../dynarr/dynarr.h"
 #include <stdbool.h>
 
 char* ptr;
 
-struct dynarr* lexify(char* code, int debug_mode);
+struct dynarr* lexify(char* code);
 
 char curr();
 char peek();

@@ -34,3 +34,4 @@ Obj/*
 *.exe
 *.out
 *.app
+*.sh

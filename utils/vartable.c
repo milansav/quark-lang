@@ -1,4 +1,5 @@
 #include "vartable.h"
+#include "../utils/debug.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,7 +13,18 @@ void construct_table(struct table* tbl)
 
 void add(struct variable* var, struct table* tbl)
 {
+    if(debug_mode & OUTPUT_PARSER || debug_mode & OUTPUT_ALL)
+    {
     printf("Adding to vartable\n");
+    }
+
+    if(get(var->label, tbl) != NULL)
+    {
+        if(debug_mode == 0 || debug_mode & OUTPUT_ALL || debug_mode & OUTPUT_PARSER)
+        {
+        printf("Warning!! Variable with this name (\"%s\") already declared!\n", var->label);
+        }
+    }
     
 	if(tbl->count >= tbl->size)
 	{

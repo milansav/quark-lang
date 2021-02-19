@@ -5,11 +5,24 @@
 #include "parser/parser.h"
 #include "utils/debug.h"
 
-char* type_keyword[] = {"IDENTIFIER", "KEYWORD", "STRING_LITERAL", "NUMBER_LITERAL", "CHAR_LITERAL", "OPERATOR", "SEMICOLON", "COMMA", "DOT", "OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_CURLY", "CLOSE_CURLY"};
+
+const char* type_keyword[] = 
+{"IDENTIFIER",
+"KEYWORD",
+"STRING_LITERAL",
+"NUMBER_LITERAL",
+"CHAR_LITERAL",
+"OPERATOR", 
+"SEMICOLON", 
+"COMMA", 
+"DOT", 
+"OPEN_BRACKET", 
+"CLOSE_BRACKET", 
+"OPEN_CURLY", 
+"CLOSE_CURLY"};
 
 int main(int argc, char *argv[])
 {
-    int debug_mode = 0;
     debug_mode += OUTPUT_PARSER;
     FILE *fp;
     fp = fopen(argv[1], "r");
@@ -27,7 +40,7 @@ int main(int argc, char *argv[])
     fread(code, 1, end-start, fp);
     printf("%s\n", code);
 
-    struct dynarr *arr = lexify(code, debug_mode);
+    struct dynarr *arr = lexify(code);
 
     if(debug_mode & OUTPUT_LEXER || debug_mode & OUTPUT_ALL)
     {
@@ -37,7 +50,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    AST* tree = parse_code(arr, debug_mode);
+    AST* tree = parse_code(arr);
 
     free(code);
     return 0;
