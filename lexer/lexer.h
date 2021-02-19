@@ -7,7 +7,7 @@
 
 char* ptr;
 
-struct dynarr* lexify(char* code);
+struct dynarr* lexify(char* code, int debug_mode);
 
 char curr();
 char peek();

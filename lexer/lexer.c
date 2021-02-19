@@ -1,12 +1,13 @@
 #include "../dynarr/dynarr.h"
 #include "../utils/keywords.h"
+#include "../utils/debug.h"
 #include "lexer.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 
 
-dynarr* lexify(char* code)
+dynarr* lexify(char* code, int debug_mode)
 {
     ptr = code;
 
@@ -17,7 +18,10 @@ dynarr* lexify(char* code)
     {
         while(is_space(curr())) next();
 
+        if(debug_mode & OUTPUT_LEXER || debug_mode & OUTPUT_ALL)
+        {
         printf("Curr: %c\n", curr());
+        }
 
         if(curr() == '/' && peek() == '/') skip_comment_line();
         if(curr() == '/' && peek() == '*') skip_comment_block();

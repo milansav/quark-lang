@@ -1,4 +1,5 @@
 #include "parser.h"
+#include "../utils/debug.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -17,9 +18,11 @@ void next_n()
     if(t_ptr+1) t_ptr++;
 }
 
-AST* parse_code(struct dynarr* _darr)
+AST* parse_code(struct dynarr* _darr, int _debug_mode)
 {
     construct_table(&vars);
+
+    debug_mode = _debug_mode;
 
     tree = malloc(sizeof(AST));
     darr = _darr;
@@ -55,17 +58,25 @@ void keyword()
 
 void declaration() //int a; || int a = 10;
 {
+    if(debug_mode & OUTPUT_PARSER || debug_mode & OUTPUT_ALL)
+    {
     printf("Declaring an byte\n");
+    }
+    
     struct variable* var = malloc(sizeof(variable));
-    next_n(); //a
-    char* label = curr_n().label; //This looks ugly but I'm lazy
-    var->label = label;
+    var->label = (t_ptr+1)->label;
     add(var,&vars);
-    next_n(); //; || =
-    if(!strcmp(curr_n().label, ";"))
+    if(!strcmp((t_ptr+2)->label, ";"))
     {}
-    else if(!strcmp(curr_n().label, "="))
+    else if(!strcmp((t_ptr+2)->label, "="))
     {
         struct assign* asgn = malloc(sizeof(assign));
+
+        if(debug_mode & OUTPUT_PARSER || debug_mode & OUTPUT_ALL)
+        {
+            printf("Assigning values\n");
+        }
+
+
     }
 }

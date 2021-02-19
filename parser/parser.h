@@ -16,6 +16,8 @@ void next_n();
 
 struct table vars;
 
+int debug_mode;
+
 typedef struct program{
     struct sttmntarr* body;
     struct sttmntarr* head;
@@ -26,7 +28,7 @@ typedef struct AST {
     struct program* body;
 } AST;
 
-struct AST* parse_code(struct dynarr* _darr);
+struct AST* parse_code(struct dynarr* _darr, int _debug_mode);
 
 //Different statement types
 void keyword();
