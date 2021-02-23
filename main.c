@@ -24,6 +24,7 @@ const char* type_keyword[] =
 int main(int argc, char *argv[])
 {
     debug_mode += OUTPUT_PARSER;
+    //debug_mode += OUTPUT_LEXER;
     FILE *fp;
     fp = fopen(argv[1], "r");
     int start = ftell(fp);
@@ -50,8 +51,8 @@ int main(int argc, char *argv[])
         }
     }
 
-    AST* tree = parse_code(arr);
+    parse_code(arr);
 
-    free(code);
+    //free(code);
     return 0;
 }

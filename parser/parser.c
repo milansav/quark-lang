@@ -3,19 +3,19 @@
 #include <stdio.h>
 #include <string.h>
 
-struct token curr_n()
+struct token* curr_n()
 {
-    if(t_ptr != NULL) return *t_ptr;
+    if(t_ptr) return t_ptr;
 }
 
-struct token peek_n()
+struct token* peek_n()
 {
-    if(t_ptr+1) return *(t_ptr+1);
+    if(t_ptr+1) return t_ptr+1;
 }
 
 void next_n()
 {
-    if(t_ptr+1) t_ptr++;
+    t_ptr++;
 }
 
 AST* parse_code(struct dynarr* _darr)
@@ -33,26 +33,30 @@ AST* parse_code(struct dynarr* _darr)
     //tree->body->head = malloc(sizeof(sttmntarr)); //Malloc parameters
     //construct(tree->body->head); //Parameters
 
-    for(int i = 0; i < darr->count; i++, next_n()) //Use t_ptr instead of i
+    for(int i = 0; i < darr->count; i++, next_n())
     {
-        switch(darr->token_arr[i].type)
+        if(debug_mode & OUTPUT_ALL || debug_mode & OUTPUT_TEST)
+        {
+            //printf("%s\n", curr_n()->label);
+        }
+
+        switch(curr_n()->type)
         {
             case KEYWORD:
                 keyword();
-            break;
-        }
-        if(debug_mode & OUTPUT_LEXER)
-        {
-        printf("%s\n", darr->token_arr[i].label);
+                break;
+            default:
+                printf(COLOR_RED "Unknown token type" COLOR_RESET "\n");
+                break;
         }
     }
 
-    return tree;
+    //return tree;
 }
 
 void keyword()
 {
-    if(!strcmp("byte", curr_n().label))
+    if(!strcmp("byte", curr_n()->label))
     {
         declaration();
     }
@@ -62,11 +66,13 @@ void declaration() //int a; || int a = 10;
 {
     if(debug_mode & OUTPUT_PARSER || debug_mode & OUTPUT_ALL)
     {
-    printf("Declaring a byte\n");
+        printf("Declaring a byte\n");
     }
     
     struct variable* var = malloc(sizeof(variable));
-    var->label = curr_n().label;
+    var->label = curr_n()->label;
     add(var, vars);
+
+    
 
 }

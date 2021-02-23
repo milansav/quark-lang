@@ -13,8 +13,8 @@
 struct dynarr* darr;
 struct token* t_ptr;
 
-struct token curr_n();
-struct token peek_n();
+struct token* curr_n();
+struct token* peek_n();
 void next_n();
 
 struct table* vars;

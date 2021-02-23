@@ -11,6 +11,7 @@ int debug_mode;
 #define OUTPUT_PARSER           16  //Output from parser
 #define OUTPUT_PREPROCESSOR     32  //Output from preprocessor
 #define OUTPUT_LINKER           64  //Output from linker
+#define OUTPUT_TEST             0x8000  //Testing purposes
 
 #define COLOR_RED     "\e[31m"
 #define COLOR_GREEN   "\e[32m"

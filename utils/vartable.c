@@ -21,9 +21,9 @@ void add(struct variable* var, struct table* tbl)
 
     if(debug_mode & OUTPUT_PARSER || debug_mode & OUTPUT_ALL)
     {
-    printf(COLOR_CYAN "Adding to vartable" COLOR_RESET "\n");
+        printf(COLOR_CYAN "Adding to vartable" COLOR_RESET "\n");
     }
-    
+
 	if(tbl->count >= tbl->size)
 	{
 		tbl->size *= 2;
