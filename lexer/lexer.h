@@ -5,9 +5,9 @@
 
 char* ptr;
 
-struct dynarr* lexify(char* code);
+struct dynarr* lexer_lexify(char* code);
 
-char curr();
+char lexer_get_current_char();
 char peek();
 void next();
 

@@ -2,20 +2,20 @@
 #include "../lexer/token.h"
 #include <stdlib.h>
 
-void arr_construct(struct dynarr* darr)
+void dynarr_construct(struct dynarr* parser_dynarr)
 {
-    darr->count = 0;
-    darr->size = 8;
-    darr->token_arr = malloc(sizeof(token) * darr->size);
+    parser_dynarr->count = 0;
+    parser_dynarr->size = 8;
+    parser_dynarr->token_arr = malloc(sizeof(token) * parser_dynarr->size);
 }
 
-void add_token(struct dynarr* darr, struct token token_el)
+void dynarr_add(struct dynarr* parser_dynarr, struct token token_el)
 {
-    if(darr->count >= darr->size)
+    if(parser_dynarr->count >= parser_dynarr->size)
     {
-        darr->size *= 2;
-        darr->token_arr = realloc(darr->token_arr, darr->size * sizeof(token));
+        parser_dynarr->size *= 2;
+        parser_dynarr->token_arr = realloc(parser_dynarr->token_arr, parser_dynarr->size * sizeof(token));
     }
-    darr->token_arr[darr->count] = token_el;
-    darr->count++;
+    parser_dynarr->token_arr[parser_dynarr->count] = token_el;
+    parser_dynarr->count++;
 }

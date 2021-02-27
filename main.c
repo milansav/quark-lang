@@ -41,17 +41,17 @@ int main(int argc, char *argv[])
     fread(code, 1, end-start, fp);
     printf("%s\n", code);
 
-    struct dynarr *arr = lexify(code);
+    struct dynarr *arr = lexer_lexify(code);
 
     if(debug_mode & OUTPUT_LEXER || debug_mode & OUTPUT_ALL)
     {
-        for(uint i = 0; i < arr->count; i++)
+        for(unsigned int i = 0; i < arr->count; i++)
         {
             printf("Type: %s. Label: %s\n", type_keyword[arr->token_arr[i].type], arr->token_arr[i].label);
         }
     }
 
-    parse_code(arr);
+    parser_parse_code(arr);
 
     //free(code);
     return 0;

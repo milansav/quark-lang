@@ -9,7 +9,7 @@ typedef struct sttmntarr {
     struct statement* statement_arr;
 } sttmntarr ;
 
-void construct(struct sttmntarr* sarr);
-void add_statement(struct sttmntarr* sarr, struct statement el);
+void sttmntarr_construct(struct sttmntarr* sarr);
+void sttmntarr_add(struct sttmntarr* sarr, struct statement el);
 
 #endif

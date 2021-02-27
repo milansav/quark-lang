@@ -3,47 +3,43 @@
 #include <stdio.h>
 #include <string.h>
 
-struct token* curr_n()
+struct token* parser_get_current_token()
 {
-    if(t_ptr) return t_ptr;
+    if(parser_token_ptr) return parser_token_ptr;
 }
 
-struct token* peek_n()
+struct token* parser_get_peek_token()
 {
-    if(t_ptr+1) return t_ptr+1;
+    if(parser_token_ptr+1) return parser_token_ptr+1;
 }
 
 void next_n()
 {
-    t_ptr++;
+    parser_token_ptr++;
 }
 
-AST* parse_code(struct dynarr* _darr)
+AST* parser_parse_code(struct dynarr* _darr)
 {
-    vars = malloc(sizeof(table));
-    construct_table(vars);
+    parser_variables_table = malloc(sizeof(table));
+    vartable_construct(parser_variables_table);
 
-    tree = malloc(sizeof(AST));
-    darr = _darr;
-    t_ptr = darr->token_arr;
-    tree->body = malloc(sizeof(program));
-    tree->body->body = malloc(sizeof(sttmntarr));
-    construct(tree->body->body);
-    current_scope = tree->body->body;
-    //tree->body->head = malloc(sizeof(sttmntarr)); //Malloc parameters
-    //construct(tree->body->head); //Parameters
+    parser_tree = malloc(sizeof(AST));
+    parser_dynarr = _darr;
+    parser_token_ptr = parser_dynarr->token_arr;
+    parser_tree->body = malloc(sizeof(program));
+    parser_tree->body->body = malloc(sizeof(sttmntarr));
+    sttmntarr_construct(parser_tree->body->body);
+    parser_current_scope = parser_tree->body->body;
+    //parser_tree->body->head = malloc(sizeof(sttmntarr)); //Malloc parameters
+    //sttmntarr_construct(parser_tree->body->head); //Parameters
 
-    for(int i = 0; i < darr->count; i++, next_n())
+    for(int i = 0; i < parser_dynarr->count; i++, next_n())
     {
-        if(debug_mode & OUTPUT_ALL || debug_mode & OUTPUT_TEST)
-        {
-            //printf("%s\n", curr_n()->label);
-        }
 
-        switch(curr_n()->type)
+        switch(parser_get_current_token()->type)
         {
             case KEYWORD:
-                keyword();
+                parse_keyword();
                 break;
             default:
                 printf(COLOR_RED "Unknown token type" COLOR_RESET "\n");
@@ -54,15 +50,15 @@ AST* parse_code(struct dynarr* _darr)
     //return tree;
 }
 
-void keyword()
+void parse_keyword()
 {
-    if(!strcmp("byte", curr_n()->label))
+    if(!strcmp("byte", parser_get_current_token()->label))
     {
-        declaration();
+        parse_declaration();
     }
 }
 
-void declaration() //int a; || int a = 10;
+void parse_declaration() //int a; || int a = 10;
 {
     if(debug_mode & OUTPUT_PARSER || debug_mode & OUTPUT_ALL)
     {
@@ -70,8 +66,8 @@ void declaration() //int a; || int a = 10;
     }
     
     struct variable* var = malloc(sizeof(variable));
-    var->label = curr_n()->label;
-    add(var, vars);
+    var->label = parser_get_current_token()->label;
+    vartable_add(var, parser_variables_table);
 
     
 

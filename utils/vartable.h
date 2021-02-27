@@ -9,8 +9,8 @@ typedef struct table {
     struct variable* variables;
 } table;
 
-void construct_table(struct table* tbl);
-void add(struct variable* var, struct table* tbl);
-struct variable* get(char* name, struct table* tbl);
+void vartable_construct(struct table* tbl);
+void vartable_add(struct variable* var, struct table* tbl);
+struct variable* vartable_get(char* name, struct table* tbl);
 
 #endif

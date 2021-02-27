@@ -4,17 +4,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-void construct_table(struct table* tbl)
+void vartable_construct(struct table* tbl)
 {
     tbl->count = 0;
     tbl->size = 8;
     tbl->variables = malloc(tbl->size*sizeof(variable));
 }
 
-void add(struct variable* var, struct table* tbl)
+void vartable_add(struct variable* var, struct table* tbl)
 {
 
-    if(get(var->label, tbl) != NULL)
+    if(vartable_get(var->label, tbl) != NULL)
     {
         printf(COLOR_YELLOW "Warning!!" COLOR_RESET " Variable with this name " COLOR_YELLOW "(\"%s\")" COLOR_RESET " already declared!\n", var->label);
     }
@@ -33,7 +33,7 @@ void add(struct variable* var, struct table* tbl)
 	tbl->count++;
 }
 
-struct variable* get(char* name, struct table* tbl)
+struct variable* vartable_get(char* name, struct table* tbl)
 {
 	for(int i = 0; i < tbl->count; i++)
     {

@@ -11,7 +11,7 @@ typedef struct dynarr {
 } dynarr;
 
 
-void arr_construct(struct dynarr* darr);
-void add_token(struct dynarr* darr, struct token token_el);
+void dynarr_construct(struct dynarr* parser_dynarr);
+void dynarr_add(struct dynarr* parser_dynarr, struct token token_el);
 
 #endif
