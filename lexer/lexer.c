@@ -160,7 +160,7 @@ struct token other()
 
 bool is_space(char c)
 {
-    return c == '\n' || c == '\t' || c == ' ';
+    return c == '\n' || c == '\t' || c == ' ' || c == '\r';
 }
 bool is_number(char c)
 {
@@ -172,7 +172,7 @@ bool is_identifier(char c)
 }
 bool is_keyword(char* c)
 {
-    for(int i = 0; i < (sizeof(keywords)/sizeof(char*)); i++)
+    for(unsigned int i = 0; i < (sizeof(keywords)/sizeof(char*)); i++)
     {
         if(!strcmp(c, keywords[i])) return true;
     }

@@ -5,8 +5,8 @@
 #include <stdlib.h>
 
 typedef struct dynarr {
-    int size;
-    int count;
+    unsigned int size;
+    unsigned int count;
     struct token* token_arr;
 } dynarr;
 

@@ -24,12 +24,12 @@ const char* type_keyword[] =
 int main(int argc, char *argv[])
 {
     debug_mode += OUTPUT_PARSER;
-    //debug_mode += OUTPUT_LEXER;
+    debug_mode += OUTPUT_ALL;
     FILE *fp;
     fp = fopen(argv[1], "r");
-    int start = ftell(fp);
+    unsigned int start = ftell(fp);
     fseek(fp, 0, SEEK_END);
-    int end = ftell(fp);
+    unsigned int end = ftell(fp);
     fseek(fp, 0, SEEK_SET);
     
     if(debug_mode & OUTPUT_ALL)

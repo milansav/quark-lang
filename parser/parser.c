@@ -5,15 +5,15 @@
 
 struct token* parser_get_current_token()
 {
-    if(parser_token_ptr) return parser_token_ptr;
+    return parser_token_ptr;
 }
 
 struct token* parser_get_peek_token()
 {
-    if(parser_token_ptr+1) return parser_token_ptr+1;
+    return (parser_token_ptr+1);
 }
 
-void next_n()
+void parser_goto_next_token()
 {
     parser_token_ptr++;
 }
@@ -23,9 +23,13 @@ AST* parser_parse_code(struct dynarr* _darr)
     parser_variables_table = malloc(sizeof(table));
     vartable_construct(parser_variables_table);
 
+    //Creates program tree
     parser_tree = malloc(sizeof(AST));
-    parser_dynarr = _darr;
-    parser_token_ptr = parser_dynarr->token_arr;
+
+    token_arr_count = _darr->count;
+    token_arr_size = _darr->size;
+
+    parser_token_ptr = _darr->token_arr;
     parser_tree->body = malloc(sizeof(program));
     parser_tree->body->body = malloc(sizeof(sttmntarr));
     sttmntarr_construct(parser_tree->body->body);
@@ -33,29 +37,9 @@ AST* parser_parse_code(struct dynarr* _darr)
     //parser_tree->body->head = malloc(sizeof(sttmntarr)); //Malloc parameters
     //sttmntarr_construct(parser_tree->body->head); //Parameters
 
-    for(int i = 0; i < parser_dynarr->count; i++, next_n())
-    {
-
-        switch(parser_get_current_token()->type)
-        {
-            case KEYWORD:
-                parse_keyword();
-                break;
-            default:
-                printf(COLOR_RED "Unknown token type" COLOR_RESET "\n");
-                break;
-        }
-    }
+    printf("Amount of tokes: %d\n", token_arr_count);
 
     //return tree;
-}
-
-void parse_keyword()
-{
-    if(!strcmp("byte", parser_get_current_token()->label))
-    {
-        parse_declaration();
-    }
 }
 
 void parse_declaration() //int a; || int a = 10;
@@ -65,10 +49,8 @@ void parse_declaration() //int a; || int a = 10;
         printf("Declaring a byte\n");
     }
     
+    parser_goto_next_token();
     struct variable* var = malloc(sizeof(variable));
     var->label = parser_get_current_token()->label;
     vartable_add(var, parser_variables_table);
-
-    
-
 }

@@ -10,12 +10,14 @@
 #include <stdio.h>
 #include <string.h>
 
-struct dynarr* parser_dynarr;
 struct token* parser_token_ptr;
+
+unsigned int token_arr_count;
+unsigned int token_arr_size;
 
 struct token* parser_get_current_token();
 struct token* parser_get_peek_token();
-void next_n();
+void parser_goto_next_token();
 
 struct table* parser_variables_table;
 
@@ -32,7 +34,6 @@ typedef struct AST {
 struct AST* parser_parse_code(struct dynarr* _darr);
 
 //Different statement types
-void parse_keyword();
 void parse_declaration();
 void parse_initialization();
 void parse_definition();

@@ -25,14 +25,14 @@ typedef struct variable{
 } variable;
 
 typedef struct assign{
-    int leftType; //1 variable, 0 const
+    unsigned char leftType; //1 variable, 0 const
     union left
     {
         struct variable* _var;
         struct constant* _const;
     } left;
 
-    int rightType; //1 variable, 0 const
+    unsigned char rightType; //1 variable, 0 const
     union right
     {
         struct variable* _var;
@@ -41,7 +41,7 @@ typedef struct assign{
 } assign;
 
 typedef struct statement{
-    int type;
+    unsigned char type;
     union node
     {
         struct constant* _const;

@@ -4,8 +4,8 @@
 #include "../parser/node.h"
 
 typedef struct table {
-    int size;
-    int count;
+    unsigned int size;
+    unsigned int count;
     struct variable* variables;
 } table;
 

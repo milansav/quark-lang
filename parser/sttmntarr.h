@@ -4,8 +4,8 @@
 #include "node.h"
 
 typedef struct sttmntarr {
-    int size;
-    int count;
+    unsigned int size;
+    unsigned int count;
     struct statement* statement_arr;
 } sttmntarr ;
 
