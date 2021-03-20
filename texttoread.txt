@@ -1,1 +1,7 @@
-cyka cyka cyka blyat blyat blyat work please
+function main()
+{
+  //Comment test
+  byte b = 0;
+  byte a = 5;
+  byte c = a + b;
+}
