@@ -1,14 +1,14 @@
 #include "sttmntarr.h"
 #include <stdlib.h>
 
-void construct(struct sttmntarr* sarr)
+void sttmntarr_construct(struct sttmntarr* sarr)
 {
     sarr->count = 0;
     sarr->size = 4;
     sarr->statement_arr = malloc(sizeof(statement) * sarr->size);
 }
 
-void add_statement(struct sttmntarr* sarr, struct statement el)
+void sttmntarr_add(struct sttmntarr* sarr, struct statement el)
 {
     if(sarr->count >= sarr->size)
     {

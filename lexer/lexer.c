@@ -1,38 +1,42 @@
+#include "lexer.h"
+#include "token.h"
 #include "../dynarr/dynarr.h"
 #include "../utils/keywords.h"
-#include "lexer.h"
+#include "../utils/debug.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 
-
-dynarr* lexify(char* code)
+dynarr* lexer_lexify(char* code)
 {
     ptr = code;
 
     dynarr* tokens = (dynarr*)malloc(sizeof(dynarr));
-    arr_construct(tokens);
+    dynarr_construct(tokens);
 
-    while(!eof(curr()))
+    while(!eof(lexer_get_current_char()))
     {
-        while(is_space(curr())) next();
+        while(is_space(lexer_get_current_char())) next();
 
-        printf("Curr: %c\n", curr());
+        if(debug_mode & OUTPUT_LEXER || debug_mode & OUTPUT_ALL)
+        {
+        printf("Curr: %c\n", lexer_get_current_char());
+        }
 
-        if(curr() == '/' && peek() == '/') skip_comment_line();
-        if(curr() == '/' && peek() == '*') skip_comment_block();
+        if(lexer_get_current_char() == '/' && peek() == '/') skip_comment_line();
+        if(lexer_get_current_char() == '/' && peek() == '*') skip_comment_block();
 
-        if(is_operator(curr())) add_token(tokens, operator_literal());
+        if(is_operator(lexer_get_current_char())) dynarr_add(tokens, operator_literal());
         else
-        if(is_number(curr())) add_token(tokens, number_literal());
+        if(is_number(lexer_get_current_char())) dynarr_add(tokens, number_literal());
         else
-        if(is_identifier(curr())) add_token(tokens, identifier());
+        if(is_identifier(lexer_get_current_char())) dynarr_add(tokens, identifier());
         else
-        if(curr() == '\'') add_token(tokens, char_literal());
+        if(lexer_get_current_char() == '\'') dynarr_add(tokens, char_literal());
         else
-        if(curr() == '"') add_token(tokens, string_literal());
+        if(lexer_get_current_char() == '"') dynarr_add(tokens, string_literal());
         else
-        if(is_other(curr())) add_token(tokens, other());
+        if(is_other(lexer_get_current_char())) dynarr_add(tokens, other());
 
         next(); //To future me: never ever don't you even think about removing this one... unless you want to wait for a few minutes to reboot your pc ofc
     }
@@ -40,21 +44,21 @@ dynarr* lexify(char* code)
     return tokens;
 }
 
-char curr(){ return *ptr;} 
+char lexer_get_current_char(){ return *ptr;} 
 char peek(){ return *(ptr+1);}
 void next(){ ptr++;}
 
 void skip_white_space()
 {
-    while(is_space(curr())) next();
+    while(is_space(lexer_get_current_char())) next();
 }
 void skip_comment_line()
 {
-    while(curr() != '\n') next();
+    while(lexer_get_current_char() != '\n') next();
 }
 void skip_comment_block()
 {
-    while(curr() != '*' && peek() != '/') next();
+    while(lexer_get_current_char() != '*' && peek() != '/') next();
 }
 
 struct token identifier()
@@ -80,7 +84,7 @@ struct token string_literal()
     struct token t;
     next();
     char* start = ptr;
-    while(curr() != '"') next();
+    while(lexer_get_current_char() != '"') next();
     char* end = ptr;
     t.label = malloc(sizeof(char) * (end-start));
     strncpy(t.label, start, (end-start));
@@ -103,7 +107,7 @@ struct token char_literal()
     struct token t;
     next();
     char* start = ptr;
-    while(curr()  != '\'') next();
+    while(lexer_get_current_char()  != '\'') next();
     char* end = ptr;
     t.label = malloc(sizeof(char) * (end-start));
     strncpy(t.label, start, (end-start));
@@ -114,7 +118,7 @@ struct token operator_literal()
 {
     struct token t;
     char* start = ptr;
-    while(is_operator(curr())) next();
+    while(is_operator(lexer_get_current_char())) next();
     char* end = ptr;
     t.label = malloc(sizeof(char) * (end-start));
     strncpy(t.label, start, (end-start));
@@ -125,7 +129,7 @@ struct token other()
 {
     struct token t;
     char* start = ptr;
-    switch(curr())
+    switch(lexer_get_current_char())
     {
         case '{':
             t.type = OPEN_CURLY;
@@ -156,7 +160,7 @@ struct token other()
 
 bool is_space(char c)
 {
-    return c == '\n' || c == '\t' || c == ' ';
+    return c == '\n' || c == '\t' || c == ' ' || c == '\r';
 }
 bool is_number(char c)
 {
@@ -168,7 +172,7 @@ bool is_identifier(char c)
 }
 bool is_keyword(char* c)
 {
-    for(int i = 0; i < strlen(keywords); i++)
+    for(unsigned int i = 0; i < (sizeof(keywords)/sizeof(char*)); i++)
     {
         if(!strcmp(c, keywords[i])) return true;
     }

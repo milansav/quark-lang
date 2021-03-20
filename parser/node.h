@@ -20,17 +20,34 @@ typedef struct constant{
 } constant;
 
 typedef struct variable{
-    char* label;
     int value;
+    char* label;
 } variable;
 
+typedef struct assign{
+    unsigned char leftType; //1 variable, 0 const
+    union left
+    {
+        struct variable* _var;
+        struct constant* _const;
+    } left;
+
+    unsigned char rightType; //1 variable, 0 const
+    union right
+    {
+        struct variable* _var;
+        struct constant* _const;
+    } right;
+} assign;
+
 typedef struct statement{
-    int type;
+    unsigned char type;
     union node
     {
         struct constant* _const;
         struct variable* _var;
-    };
+    } node;
 } statement;
+
 
 #endif

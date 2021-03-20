@@ -1,5 +1,5 @@
 #ifndef KEYWORDS_H
-#define keyWORDS_H
+#define KEYWORDS_H
 
 const char* keywords[] = 
 {"if", 
@@ -9,6 +9,6 @@ const char* keywords[] =
 "char", 
 "byte", 
 "def", 
-"struct",};
+"struct"};
 
 #endif

@@ -3,31 +3,56 @@
 #include "dynarr/dynarr.h"
 #include "lexer/lexer.h"
 #include "parser/parser.h"
+#include "utils/debug.h"
 
-char* type_keyword[] = {"IDENTIFIER", "KEYWORD", "STRING_LITERAL", "NUMBER_LITERAL", "CHAR_LITERAL", "OPERATOR", "SEMICOLON", "COMMA", "DOT", "OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_CURLY", "CLOSE_CURLY"};
+
+const char* type_keyword[] = 
+{"IDENTIFIER",
+"KEYWORD",
+"STRING_LITERAL",
+"NUMBER_LITERAL",
+"CHAR_LITERAL",
+"OPERATOR", 
+"SEMICOLON", 
+"COMMA", 
+"DOT", 
+"OPEN_BRACKET", 
+"CLOSE_BRACKET", 
+"OPEN_CURLY", 
+"CLOSE_CURLY"};
 
 int main(int argc, char *argv[])
 {
+    debug_mode += OUTPUT_PARSER;
+    debug_mode += OUTPUT_ALL;
     FILE *fp;
     fp = fopen(argv[1], "r");
-    int start = ftell(fp);
+    unsigned int start = ftell(fp);
     fseek(fp, 0, SEEK_END);
-    int end = ftell(fp);
+    unsigned int end = ftell(fp);
     fseek(fp, 0, SEEK_SET);
+    
+    if(debug_mode & OUTPUT_ALL)
+    {
     printf("Size of the file %dbytes\n", (end-start));
+    }
+
     char* code = malloc(end-start);
     fread(code, 1, end-start, fp);
     printf("%s\n", code);
 
-    struct dynarr *arr = lexify(code);
+    struct dynarr *arr = lexer_lexify(code);
 
-    for(uint i = 0; i < arr->count; i++)
+    if(debug_mode & OUTPUT_LEXER || debug_mode & OUTPUT_ALL)
     {
-        printf("Type: %s. Label: %s\n", type_keyword[arr->token_arr[i].type], arr->token_arr[i].label);
+        for(unsigned int i = 0; i < arr->count; i++)
+        {
+            printf("Type: %s. Label: %s\n", type_keyword[arr->token_arr[i].type], arr->token_arr[i].label);
+        }
     }
 
-    parse_code(arr);
+    parser_parse_code(arr);
 
-    free(code);
+    //free(code);
     return 0;
 }
