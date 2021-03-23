@@ -5,6 +5,7 @@
 What is left to do:  
   
 - Parser  
+  - Syntax analyser 
 - Preprocessor  
   - Checking if any undeclared variables, functions exist  
   - Macros  
