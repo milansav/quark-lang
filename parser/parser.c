@@ -1,56 +1,57 @@
 #include "parser.h"
-#include "../utils/debug.h"
-#include <stdio.h>
-#include <string.h>
 
-struct token* parser_get_current_token()
+token* curr_n()
 {
-    return parser_token_ptr;
+	if(is_next) return lexemes_array;
+	else return NULL;
 }
 
-struct token* parser_get_peek_token()
+token* peek_n()
 {
-    return (parser_token_ptr+1);
+	if(is_next()) return (lexemes_array+1);
+	else return NULL;
 }
 
-void parser_goto_next_token()
+void next_n()
 {
-    parser_token_ptr++;
+	lexemes_array++;
 }
 
-AST* parser_parse_code(struct dynarr* _darr)
+bool is_next()
 {
-    parser_variables_table = malloc(sizeof(table));
-    vartable_construct(parser_variables_table);
-
-    //Creates program tree
-    parser_tree = malloc(sizeof(AST));
-
-    token_arr_count = _darr->count;
-    token_arr_size = _darr->size;
-
-    parser_token_ptr = _darr->token_arr;
-    parser_tree->body = malloc(sizeof(program));
-    parser_tree->body->body = malloc(sizeof(sttmntarr));
-    sttmntarr_construct(parser_tree->body->body);
-    parser_current_scope = parser_tree->body->body;
-    //parser_tree->body->head = malloc(sizeof(sttmntarr)); //Malloc parameters
-    //sttmntarr_construct(parser_tree->body->head); //Parameters
-
-    printf("Amount of tokes: %d\n", token_arr_count);
-
-    //return tree;
+	return (lexemes_array+1)->label;
 }
 
-void parse_declaration() //int a; || int a = 10;
+syntax_tree* parse_code(dynarr* darr)
 {
-    if(debug_mode & OUTPUT_PARSER || debug_mode & OUTPUT_ALL)
-    {
-        printf("Declaring a byte\n");
-    }
-    
-    parser_goto_next_token();
-    struct variable* var = malloc(sizeof(variable));
-    var->label = parser_get_current_token()->label;
-    vartable_add(var, parser_variables_table);
+	lexemes_array = darr->token_arr;
+	syntax_tree* st = malloc(sizeof(syntax_tree));
+	while(is_next())
+	{
+		if(debug_mode & OUTPUT_PARSER)
+		{
+			printf("%s\n", curr_n()->label);
+		}
+		next_n();
+	}
+}
+
+node_variable* parse_declaration()
+{
+	node_variable* variable = malloc(sizeof(node_variable));
+}
+
+node_branch* parse_branch()
+{
+	node_branch* branch = malloc(sizeof(node_branch));
+}
+
+node_constant* parse_constant()
+{
+	node_constant* constant = malloc(sizeof(node_constant));
+}
+
+node_return* parse_return()
+{
+	node_return* _return = malloc(sizeof(node_return));
 }

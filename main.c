@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <malloc.h>
 #include "dynarr/dynarr.h"
-#include "lexer/lexer.h"
 #include "parser/parser.h"
+#include "lexer/lexer.h"
 #include "utils/debug.h"
-
+#include "utils/language.h"
 
 const char* type_keyword[] = 
 {"IDENTIFIER",
@@ -23,8 +23,12 @@ const char* type_keyword[] =
 
 int main(int argc, char *argv[])
 {
+    //Changing language settings
     debug_mode += OUTPUT_PARSER;
-    debug_mode += OUTPUT_ALL;
+    //debug_mode += OUTPUT_ALL;
+    language_current_mode = LANGUAGE_MODE_COMPILED;
+    //End of settings
+
     FILE *fp;
     fp = fopen(argv[1], "r");
     unsigned int start = ftell(fp);
@@ -51,8 +55,8 @@ int main(int argc, char *argv[])
         }
     }
 
-    parser_parse_code(arr);
+    syntax_tree* tree = parse_code(arr);
 
-    //free(code);
+    free(code);
     return 0;
 }
