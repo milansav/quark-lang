@@ -5,22 +5,22 @@
 
 char* ptr;
 
-struct dynarr* lexer_lexify(char* code);
+struct lexeme_dynarr* lexer_lexify(char* code);
 
-char lexer_get_current_char();
-char peek();
-void next();
+char char_curr();
+char char_peek();
+void char_next();
 
 void skip_whitespace();
 void skip_comment_line();
 void skip_comment_block();
 
-struct token identifier();
-struct token string_literal();
-struct token number_literal();
-struct token char_literal();
-struct token operator_literal();
-struct token other();
+struct lexeme identifier();
+struct lexeme string_literal();
+struct lexeme number_literal();
+struct lexeme char_literal();
+struct lexeme operator_literal();
+struct lexeme other();
 
 bool is_space(char c);
 bool is_number(char c);

@@ -24,8 +24,8 @@ const char* type_keyword[] =
 int main(int argc, char *argv[])
 {
     //Changing language settings
-    debug_mode += OUTPUT_PARSER;
-    //debug_mode += OUTPUT_ALL;
+    g_debug_mode += OUTPUT_PARSER;
+    //g_debug_mode += OUTPUT_ALL;
     language_current_mode = LANGUAGE_MODE_COMPILED;
     //End of settings
 
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     unsigned int end = ftell(fp);
     fseek(fp, 0, SEEK_SET);
     
-    if(debug_mode & OUTPUT_ALL)
+    if(g_debug_mode & OUTPUT_ALL)
     {
     printf("Size of the file %dbytes\n", (end-start));
     }
@@ -45,9 +45,9 @@ int main(int argc, char *argv[])
     fread(code, 1, end-start, fp);
     printf("%s\n", code);
 
-    struct dynarr *arr = lexer_lexify(code);
+    lexeme_dynarr *arr = lexer_lexify(code);
 
-    if(debug_mode & OUTPUT_LEXER || debug_mode & OUTPUT_ALL)
+    if(g_debug_mode & OUTPUT_LEXER || g_debug_mode & OUTPUT_ALL)
     {
         for(unsigned int i = 0; i < arr->count; i++)
         {

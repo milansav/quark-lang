@@ -9,12 +9,12 @@
 
 typedef struct node node;
 
-token* curr_n();
-token* peek_n();
-void next_n();
-bool is_next();
+lexeme* lexeme_curr();
+lexeme* lexeme_peek();
+void lexeme_next();
+bool lexeme_is_next();
 
-token* lexemes_array;
+lexeme* lexemes_array;
 
 typedef struct node_statement_list
 {
@@ -72,7 +72,7 @@ typedef struct syntax_tree
 
 node_statement_list* current_scope;
 
-syntax_tree* parse_code(dynarr* darr);
+syntax_tree* parse_code(lexeme_dynarr* darr);
 
 node_variable* parse_declaration();
 node_branch* parse_branch();

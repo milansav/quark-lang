@@ -1,38 +1,38 @@
 #include "parser.h"
 
-token* curr_n()
+lexeme* lexeme_curr()
 {
-	if(is_next) return lexemes_array;
+	if(lexeme_is_next) return lexemes_array;
 	else return NULL;
 }
 
-token* peek_n()
+lexeme* lexeme_peek()
 {
-	if(is_next()) return (lexemes_array+1);
+	if(lexeme_is_next()) return (lexemes_array+1);
 	else return NULL;
 }
 
-void next_n()
+void lexeme_next()
 {
 	lexemes_array++;
 }
 
-bool is_next()
+bool lexeme_is_next()
 {
 	return (lexemes_array+1)->label;
 }
 
-syntax_tree* parse_code(dynarr* darr)
+syntax_tree* parse_code(lexeme_dynarr* darr)
 {
 	lexemes_array = darr->token_arr;
 	syntax_tree* st = malloc(sizeof(syntax_tree));
-	while(is_next())
+	while(lexeme_is_next())
 	{
-		if(debug_mode & OUTPUT_PARSER)
+		if(g_debug_mode & OUTPUT_PARSER)
 		{
-			printf("%s\n", curr_n()->label);
+			printf("%s\n", lexeme_curr()->label);
 		}
-		next_n();
+		lexeme_next();
 	}
 }
 

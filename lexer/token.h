@@ -1,10 +1,10 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
-typedef struct token{
+typedef struct lexeme{
     char* label;
     int type;
-} token;
+} lexeme;
 
 enum Type{
     IDENTIFIER,
