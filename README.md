@@ -13,3 +13,13 @@ What is left to do:
 - Compiler  
   - Compiler itself  
   - Labeler for functions, ifs, loops  
+
+How to install:  
+  
+- `git clone https://github.com/milansav/quark-lang.git`  
+  
+- `make`  
+  
+Running:  
+  
+-  `quark 'input_file.qrk'`

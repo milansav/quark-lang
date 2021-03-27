@@ -3,7 +3,7 @@
 all : build
 
 build : main.o dynarr.o lexer.o parser.o
-	gcc main.o dynarr.o lexer.o parser.o -o build
+	gcc main.o dynarr.o lexer.o parser.o -o quark
 
 main.o : main.c
 	gcc -c main.c
@@ -19,4 +19,4 @@ parser.o : ./parser/parser.c
 
 clean:
 	rm *.o
-	rm build
+	rm quark
