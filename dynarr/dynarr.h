@@ -4,14 +4,14 @@
 #include "../lexer/token.h"
 #include <stdlib.h>
 
-typedef struct dynarr {
+typedef struct lexeme_dynarr {
     unsigned int size;
     unsigned int count;
-    struct token* token_arr;
-} dynarr;
+    struct lexeme* token_arr;
+} lexeme_dynarr;
 
 
-void dynarr_construct(struct dynarr* parser_dynarr);
-void dynarr_add(struct dynarr* parser_dynarr, struct token token_el);
+void dynarr_construct(struct lexeme_dynarr* parser_dynarr);
+void dynarr_add(struct lexeme_dynarr* parser_dynarr, struct lexeme token_el);
 
 #endif

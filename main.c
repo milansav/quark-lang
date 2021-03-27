@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <malloc.h>
 #include "dynarr/dynarr.h"
-#include "lexer/lexer.h"
 #include "parser/parser.h"
+#include "lexer/lexer.h"
 #include "utils/debug.h"
-
+#include "utils/language.h"
 
 const char* type_keyword[] = 
 {"IDENTIFIER",
@@ -23,8 +23,12 @@ const char* type_keyword[] =
 
 int main(int argc, char *argv[])
 {
-    debug_mode += OUTPUT_PARSER;
-    debug_mode += OUTPUT_ALL;
+    //Changing language settings
+    g_debug_mode += OUTPUT_PARSER;
+    //g_debug_mode += OUTPUT_ALL;
+    language_current_mode = LANGUAGE_MODE_COMPILED;
+    //End of settings
+
     FILE *fp;
     fp = fopen(argv[1], "r");
     unsigned int start = ftell(fp);
@@ -32,7 +36,7 @@ int main(int argc, char *argv[])
     unsigned int end = ftell(fp);
     fseek(fp, 0, SEEK_SET);
     
-    if(debug_mode & OUTPUT_ALL)
+    if(g_debug_mode & OUTPUT_ALL)
     {
     printf("Size of the file %dbytes\n", (end-start));
     }
@@ -41,9 +45,9 @@ int main(int argc, char *argv[])
     fread(code, 1, end-start, fp);
     printf("%s\n", code);
 
-    struct dynarr *arr = lexer_lexify(code);
+    lexeme_dynarr *arr = lexer_lexify(code);
 
-    if(debug_mode & OUTPUT_LEXER || debug_mode & OUTPUT_ALL)
+    if(g_debug_mode & OUTPUT_LEXER || g_debug_mode & OUTPUT_ALL)
     {
         for(unsigned int i = 0; i < arr->count; i++)
         {
@@ -51,8 +55,8 @@ int main(int argc, char *argv[])
         }
     }
 
-    parser_parse_code(arr);
+    syntax_tree* tree = parse_code(arr);
 
-    //free(code);
+    free(code);
     return 0;
 }
