@@ -5,6 +5,8 @@
 #include "../lexer/token.h"
 #include "../dynarr/dynarr.h"
 #include "../utils/debug.h"
+#include <string.h>
+
 #include <stdio.h>
 
 typedef struct node node;
@@ -18,8 +20,14 @@ lexeme* lexemes_array;
 
 typedef struct node_statement_list
 {
+	int size;
+	int count;
 	node* nodes;
 } node_statement_list;
+
+void node_statement_list_construct(node_statement_list* list);
+void node_statement_list_add(node_statement_list* list, node* item);
+void node_statement_list_remove(node_statement_list* list);
 
 typedef struct node_program
 {
@@ -74,9 +82,11 @@ node_statement_list* current_scope;
 
 syntax_tree* parse_code(lexeme_dynarr* darr);
 
-node_variable* parse_declaration();
-node_branch* parse_branch();
-node_constant* parse_constant();
-node_return* parse_return();
+node* parse_keyword();
+
+node_variable* node_create_declaration();
+node_branch* node_create_branch();
+node_constant* node_create_constant();
+node_return* node_create_return();
 
 #endif

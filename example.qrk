@@ -1,0 +1,7 @@
+import print;
+
+function test(byte a)
+{
+    byte b = a + 5;
+    qrk.print(b);
+}

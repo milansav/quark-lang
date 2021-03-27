@@ -6,7 +6,7 @@ typedef struct lexeme{
     int type;
 } lexeme;
 
-enum Type{
+enum lexeme_type{
     IDENTIFIER,
     KEYWORD,
     STRING_LITERAL,

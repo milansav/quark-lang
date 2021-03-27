@@ -1,7 +1,9 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-unsigned int g_debug_mode;
+typedef unsigned int uint32;
+
+uint32 g_debug_mode;
 
 #define OUTPUT_DEBUG            0   //Warnings, errors etc.. from parser, compiler etc..
 #define NO_OUTPUT               1   //Output absolutely nothing

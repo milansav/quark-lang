@@ -1,21 +1,45 @@
 #include "dynarr.h"
 #include "../lexer/token.h"
-#include <stdlib.h>
+#include "../utils/debug.h"
 
-void dynarr_construct(struct lexeme_dynarr* parser_dynarr)
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
+
+void lexeme_dynarr_construct(lexeme_dynarr* dynarr)
 {
-    parser_dynarr->count = 0;
-    parser_dynarr->size = 8;
-    parser_dynarr->token_arr = malloc(sizeof(lexeme) * parser_dynarr->size);
+    dynarr->count = 0;
+    dynarr->size = 8;
+    dynarr->token_arr = malloc(sizeof(lexeme) * dynarr->size);
 }
 
-void dynarr_add(struct lexeme_dynarr* parser_dynarr, struct lexeme token_el)
+void lexeme_dynarr_add(lexeme_dynarr* dynarr, lexeme token_el)
 {
-    if(parser_dynarr->count >= parser_dynarr->size)
+    if(dynarr->count >= dynarr->size)
     {
-        parser_dynarr->size *= 2;
-        parser_dynarr->token_arr = realloc(parser_dynarr->token_arr, parser_dynarr->size * sizeof(lexeme));
+        dynarr->size *= 2;
+        dynarr->token_arr = realloc(dynarr->token_arr, dynarr->size * sizeof(lexeme));
     }
-    parser_dynarr->token_arr[parser_dynarr->count] = token_el;
-    parser_dynarr->count++;
+    dynarr->token_arr[dynarr->count] = token_el;
+    dynarr->count++;
+}
+
+void lexeme_dynarr_remove(lexeme_dynarr* dynarr)
+{
+    uint32 bytes_removed = 0;
+    
+    for(uint32 i = 0; i < dynarr->count; i++)
+    {
+        char* current = dynarr->token_arr[i].label;
+        bytes_removed += strlen(current);
+        memset(current, 0, strlen(current));
+    }
+
+    bytes_removed += strlen((char*)dynarr->token_arr);
+    memset(dynarr->token_arr, 0, strlen((char*)dynarr->token_arr));
+    free(dynarr->token_arr);
+
+    if(g_debug_mode & OUTPUT_LEXER || g_debug_mode & OUTPUT_ALL)
+    printf(COLOR_YELLOW "Lexeme array removed\nBytes cleared:" COLOR_RESET" %db\n", bytes_removed);
 }

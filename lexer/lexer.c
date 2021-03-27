@@ -12,7 +12,7 @@ lexeme_dynarr* lexer_lexify(char* code)
     ptr = code;
 
     lexeme_dynarr* tokens = (lexeme_dynarr*)malloc(sizeof(lexeme_dynarr));
-    dynarr_construct(tokens);
+    lexeme_dynarr_construct(tokens);
 
     while(!eof(char_curr()))
     {
@@ -26,17 +26,17 @@ lexeme_dynarr* lexer_lexify(char* code)
         if(char_curr() == '/' && char_peek() == '/') skip_comment_line();
         if(char_curr() == '/' && char_peek() == '*') skip_comment_block();
 
-        if(is_operator(char_curr())) dynarr_add(tokens, operator_literal());
+        if(is_operator(char_curr())) lexeme_dynarr_add(tokens, operator_literal());
         else
-        if(is_number(char_curr())) dynarr_add(tokens, number_literal());
+        if(is_number(char_curr())) lexeme_dynarr_add(tokens, number_literal());
         else
-        if(is_identifier(char_curr())) dynarr_add(tokens, identifier());
+        if(is_identifier(char_curr())) lexeme_dynarr_add(tokens, identifier());
         else
-        if(char_curr() == '\'') dynarr_add(tokens, char_literal());
+        if(char_curr() == '\'') lexeme_dynarr_add(tokens, char_literal());
         else
-        if(char_curr() == '"') dynarr_add(tokens, string_literal());
+        if(char_curr() == '"') lexeme_dynarr_add(tokens, string_literal());
         else
-        if(is_other(char_curr())) dynarr_add(tokens, other());
+        if(is_other(char_curr())) lexeme_dynarr_add(tokens, other());
 
         char_next(); //To future me: never ever don't you even think about removing this one... unless you want to wait for a few minutes to reboot your pc ofc
     }
