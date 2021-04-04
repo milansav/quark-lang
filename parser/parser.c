@@ -34,6 +34,19 @@ void node_statement_list_construct(node_statement_list* list)
 
 void node_statement_list_add(node_statement_list* list, node* item)
 {
+
+	if(!item)
+	{
+		printf(COLOR_RED "Node statement list: Input item can't be null\n" COLOR_RESET);
+		return;
+	}
+
+	if(!list)
+	{
+		printf(COLOR_RED "Node statement list: Input list can't be null\n" COLOR_RESET);
+		return;
+	}
+
 	if(list->count >= list->size)
 	{
 		list->size += 4;
@@ -47,6 +60,13 @@ void node_statement_list_remove(node_statement_list* list)
 {
 	uint32 bytes_removed = 0;
 
+	for(uint32 i = 0; i < list->count; i++)
+	{
+		switch(list->nodes[i].type)
+		{
+
+		}
+	}
 }
 
 syntax_tree* parse_code(lexeme_dynarr* darr)
@@ -54,59 +74,11 @@ syntax_tree* parse_code(lexeme_dynarr* darr)
 	lexemes_array = darr->token_arr;
 	syntax_tree* syntax_tree = malloc(sizeof(syntax_tree));
 
-	current_scope = &syntax_tree->program.nodes;
+	current_scope = syntax_tree->functions;
 
-	while(lexeme_is_next())
-	{
-		if(g_debug_mode & OUTPUT_PARSER && g_debug_mode & OUTPUT_TEST)
-		{
-			printf("%s\n", lexeme_curr()->label);
-		}
+	node_statement_list_construct(syntax_tree->functions);
 
-		switch(lexeme_curr()->type)
-		{
-			case KEYWORD:
-				node_statement_list_add(current_scope, parse_keyword());
-			break;
 
-		}
 
-		lexeme_next();
-	}
-}
-
-node* parse_keyword()
-{
-	if(!strcmp("if", lexeme_curr()->label))
-	{
-
-	}
-}
-
-node_variable* node_create_declaration()
-{
-	node_variable* variable = malloc(sizeof(node_variable));
-
-	return variable;
-}
-
-node_branch* node_create_branch()
-{
-	node_branch* branch = malloc(sizeof(node_branch));
-
-	return branch;
-}
-
-node_constant* node_create_constant()
-{
-	node_constant* constant = malloc(sizeof(node_constant));
-
-	return constant;
-}
-
-node_return* node_create_return()
-{
-	node_return* _return = malloc(sizeof(node_return));
-
-	return _return;
+	return syntax_tree;
 }

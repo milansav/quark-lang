@@ -5,8 +5,7 @@ const char* keywords[] =
 {"if", 
 "else", 
 "return", 
-"void", 
-"char", 
+"function", 
 "byte", 
 "def", 
 "struct"};

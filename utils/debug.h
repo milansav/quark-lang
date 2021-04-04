@@ -2,6 +2,7 @@
 #define DEBUG_H
 
 typedef unsigned int uint32;
+typedef unsigned char ubyte;
 
 uint32 g_debug_mode;
 
