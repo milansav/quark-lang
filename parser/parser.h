@@ -9,7 +9,10 @@
 
 #include <stdio.h>
 
-typedef struct node node;
+typedef struct node
+{
+	
+} node;
 
 lexeme* lexeme_curr();
 lexeme* lexeme_peek();
@@ -17,6 +20,9 @@ void lexeme_next();
 bool lexeme_is_next();
 
 lexeme* lexemes_array;
+
+void parser_construct(lexeme_dynarr* darr);
+void parser_deconstruct();
 
 typedef struct node_statement_list
 {
@@ -29,58 +35,13 @@ void node_statement_list_construct(node_statement_list* list);
 void node_statement_list_add(node_statement_list* list, node* item);
 void node_statement_list_remove(node_statement_list* list);
 
-typedef struct node_variable
-{
-    char* name;
-} node_variable;
-
-typedef struct node_constant
-{
-    int value;
-} node_constant;
-
-typedef struct node_return
-{
-    int type;
-    union
-    {
-        node_variable variable;
-        node_constant constant;
-    };
-} node_return;
-
-typedef struct node_branch
-{
-	node_statement_list* condition_true;
-	node_statement_list* condition_false;
-} node_branch;
-
-typedef struct node_function
-{
-	node_statement_list* statements;
-} node_function;
-
-typedef struct node 
-{
-	ubyte type;
-	union
-	{
-		node_statement_list* statement_list_node;
-		node_variable* variable_node;
-		node_constant* constant_node;
-		node_return* return_node;
-		node_branch* branch_node;
-		node_function* funcion_node;
-	};
-} node;
-
 typedef struct syntax_tree
 {
-    node_statement_list* functions;
+
 } syntax_tree;
 
 node_statement_list* current_scope;
 
-syntax_tree* parse_code(lexeme_dynarr* darr);
+syntax_tree* parse_code();
 
 #endif

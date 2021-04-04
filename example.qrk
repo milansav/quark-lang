@@ -4,4 +4,10 @@ function test(byte a)
 {
     byte b = a + 5;
     qrk.print(b);
+    
+    if(a >= b)
+    {
+        const;
+        float;
+    }
 }

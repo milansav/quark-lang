@@ -6,19 +6,22 @@ typedef struct lexeme{
     int type;
 } lexeme;
 
-enum lexeme_type{
-    IDENTIFIER,
-    KEYWORD,
-    STRING_LITERAL,
-    NUMBER_LITERAL,
-    CHAR_LITERAL,
-    OPERATOR,
-    SEMICOLON,
-    COMMA,
-    DOT,
-    OPEN_BRACKET,
-    CLOSE_BRACKET,
-    OPEN_CURLY,
-    CLOSE_CURLY
-};
+typedef enum {
+    ident, number,
+    strnliteral, charliteral,
+    lparen, rparen,
+    times, slash,
+    plus, minus,
+    eql, neq,
+    lss, leq,
+    gtr, geq,
+    funcsym, semicolon,
+    ifsym, whilesym,
+    constsym, varsym,
+    comma, dot,
+    begin, end,
+    defsym, structsym,
+    returnsym, elsesym
+} Symbol;
+
 #endif

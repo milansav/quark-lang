@@ -4,29 +4,30 @@
 #include "parser/parser.h"
 #include "lexer/lexer.h"
 #include "utils/debug.h"
-#include "utils/language.h"
 
 const char* type_keyword[] = 
-{"IDENTIFIER",
-"KEYWORD",
-"STRING_LITERAL",
-"NUMBER_LITERAL",
-"CHAR_LITERAL",
-"OPERATOR", 
-"SEMICOLON", 
-"COMMA", 
-"DOT", 
-"OPEN_BRACKET", 
-"CLOSE_BRACKET", 
-"OPEN_CURLY", 
-"CLOSE_CURLY"};
+{
+    "ident", "number",
+    "strnliteral", "charliteral",
+    "lparen", "rparen",
+    "times", "slash",
+    "plus", "minus",
+    "eql", "neq",
+    "lss", "leq",
+    "gtr", "geq",
+    "funcsym", "semicolon",
+    "ifsym", "whilesym",
+    "constsym", "varsym",
+    "comma", "dot",
+    "begin", "end",
+    "defsym", "structsym",
+    "returnsym", "elsesym"};
 
 int main(int argc, char *argv[])
 {
     //Changing language settings
     g_debug_mode += OUTPUT_PARSER;
     g_debug_mode += OUTPUT_ALL;
-    language_current_mode = LANGUAGE_MODE_COMPILED;
     //End of settings
 
     FILE *fp;

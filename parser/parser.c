@@ -62,23 +62,13 @@ void node_statement_list_remove(node_statement_list* list)
 
 	for(uint32 i = 0; i < list->count; i++)
 	{
-		switch(list->nodes[i].type)
-		{
-
-		}
+		
 	}
 }
 
 syntax_tree* parse_code(lexeme_dynarr* darr)
 {
-	lexemes_array = darr->token_arr;
-	syntax_tree* syntax_tree = malloc(sizeof(syntax_tree));
+	syntax_tree* tree = malloc(sizeof(syntax_tree));
 
-	current_scope = syntax_tree->functions;
-
-	node_statement_list_construct(syntax_tree->functions);
-
-
-
-	return syntax_tree;
+	return tree;
 }

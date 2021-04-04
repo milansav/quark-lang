@@ -3,7 +3,9 @@
 all : build
 
 build : main.o dynarr.o lexer.o parser.o
-	gcc main.o dynarr.o lexer.o parser.o -o quark
+	gcc main.o dynarr.o lexer.o parser.o -o quark.out
+
+remake : clear clean build
 
 main.o : main.c
 	gcc -c main.c
@@ -18,5 +20,8 @@ parser.o : ./parser/parser.c
 	gcc -c ./parser/parser.c
 
 clean:
-	rm *.o
-	rm quark
+	if test -f "*.o"; then rm *.o; fi
+	if test -f "quark.out"; then rm quark.out; fi
+
+clear:
+	clear

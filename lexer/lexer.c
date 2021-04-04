@@ -71,26 +71,62 @@ lexeme identifier()
     strncpy(t.label, start, (end-start));
     if(is_keyword(t.label))
     {
-        t.type = KEYWORD;
+
+        if(!strcmp(t.label, "if"))
+        {
+            t.type = ifsym;
+        }
+        else if(!strcmp(t.label, "else"))
+        {
+            t.type = elsesym;
+        }
+        else if(!strcmp(t.label, "return"))
+        {
+            t.type = returnsym;
+        }
+        else if(!strcmp(t.label, "function"))
+        {
+            t.type = funcsym;
+        }
+        else if(!strcmp(t.label, "while"))
+        {
+            t.type = whilesym;
+        }
+        else if(!strcmp(t.label, "byte") || !strcmp(t.label, "int") || !strcmp(t.label, "float"))
+        {
+            t.type = varsym;
+        }
+        else if(!strcmp(t.label, "def"))
+        {
+            t.type = defsym;
+        }
+        else if(!strcmp(t.label, "struct"))
+        {
+            t.type = structsym;
+        }
+        else if(!strcmp(t.label, "const"))
+        {
+            t.type = constsym;
+        }
     }
     else
     {
-    t.type = IDENTIFIER;
+        t.type = ident;
     }
     return t;
 }
 
 lexeme string_literal()
 {
-    lexeme t;
+    lexeme temp;
     char_next();
     char* start = ptr;
     while(char_curr() != '"') char_next();
     char* end = ptr;
-    t.label = malloc(sizeof(char) * (end-start));
-    strncpy(t.label, start, (end-start));
-    t.type = STRING_LITERAL;
-    return t;
+    temp.label = malloc(sizeof(char) * (end-start));
+    strncpy(temp.label, start, (end-start));
+    temp.type = strnliteral;
+    return temp;
 }
 
 lexeme number_literal()
@@ -101,7 +137,7 @@ lexeme number_literal()
     char* end = ptr+1;
     t.label = malloc(sizeof(char) * (end-start));
     strncpy(t.label, start, (end-start));
-    t.type = NUMBER_LITERAL;
+    t.type = number;
     return t;
 }
 
@@ -114,7 +150,7 @@ lexeme char_literal()
     char* end = ptr;
     t.label = malloc(sizeof(char) * (end-start));
     strncpy(t.label, start, (end-start));
-    t.type = CHAR_LITERAL;
+    t.type = charliteral;
     return t;
 }
 
@@ -126,7 +162,48 @@ lexeme operator_literal()
     char* end = ptr;
     t.label = malloc(sizeof(char) * (end-start));
     strncpy(t.label, start, (end-start));
-    t.type = OPERATOR;
+
+    if(!strcmp(t.label, "+"))
+    {
+        t.type = plus;
+    }
+    else if(!strcmp(t.label, "-"))
+    {
+        t.type = minus;
+    }
+    else if(!strcmp(t.label, "*"))
+    {
+        t.type = times;
+    }
+    else if(!strcmp(t.label, "/"))
+    {
+        t.type = slash;
+    }
+    else if(!strcmp(t.label, "="))
+    {
+        t.type = eql;
+    }
+    else if(!strcmp(t.label, "!="))
+    {
+        t.type = neq;
+    }
+    else if(!strcmp(t.label, ">"))
+    {
+        t.type = gtr;
+    }
+    else if(!strcmp(t.label, "<"))
+    {
+        t.type = lss ;
+    }
+    else if(!strcmp(t.label, ">="))
+    {
+        t.type = geq;
+    }
+    else if(!strcmp(t.label, "<="))
+    {
+        t.type = leq;
+    }
+
     return t;
 }
 
@@ -137,25 +214,25 @@ lexeme other()
     switch(char_curr())
     {
         case '{':
-            t.type = OPEN_CURLY;
+            t.type = begin;
         break;
         case '}':
-            t.type = CLOSE_CURLY;
+            t.type = end;
         break;
         case '(':
-            t.type = OPEN_BRACKET;
+            t.type = lparen;
         break;
         case ')':
-            t.type = CLOSE_BRACKET;
+            t.type = rparen;
         break;
         case ';':
-            t.type = SEMICOLON;
+            t.type = semicolon;
         break;
         case ',':
-            t.type = COMMA;
+            t.type = comma;
         break;
         case '.':
-            t.type = DOT;
+            t.type = dot;
         break;
     }
     t.label = malloc(1);
@@ -177,7 +254,7 @@ bool is_identifier(char c)
 }
 bool is_keyword(char* c)
 {
-    for(unsigned int i = 0; i < (sizeof(keywords)/sizeof(char*)); i++)
+    for(uint32 i = 0; i < (sizeof(keywords)/sizeof(char*)); i++)
     {
         if(!strcmp(c, keywords[i])) return true;
     }
