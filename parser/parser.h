@@ -9,20 +9,13 @@
 
 #include <stdio.h>
 
+lexeme* lexemes_array;
+Symbol sym;
+
 typedef struct node
 {
 	
 } node;
-
-lexeme* lexeme_curr();
-lexeme* lexeme_peek();
-void lexeme_next();
-bool lexeme_is_next();
-
-lexeme* lexemes_array;
-
-void parser_construct(lexeme_dynarr* darr);
-void parser_deconstruct();
 
 typedef struct node_statement_list
 {
@@ -31,17 +24,29 @@ typedef struct node_statement_list
 	node* nodes;
 } node_statement_list;
 
+lexeme* lexeme_curr(void);
+lexeme* lexeme_peek(void);
+void lexeme_next(void);
+bool lexeme_is_next(void);
+
+void parser_construct(lexeme_dynarr* darr);
+void parser_deconstruct(void);
+
 void node_statement_list_construct(node_statement_list* list);
 void node_statement_list_add(node_statement_list* list, node* item);
 void node_statement_list_remove(node_statement_list* list);
 
-typedef struct syntax_tree
-{
+void* parse_code(void);
 
-} syntax_tree;
-
-node_statement_list* current_scope;
-
-syntax_tree* parse_code();
+void nextsym(void);
+int accept(Symbol s);
+int expect(Symbol s);
+void factor(void);
+void term(void);
+void expression(void);
+void condition(void);
+void statement(void);
+void block(void);
+void program(void);
 
 #endif

@@ -1,9 +1,10 @@
-import print;
-
 function test(byte a)
 {
     byte b = a + 5;
     qrk.print(b);
+    
+    byte character = 'A';
+    string characters = "AAAAA";
     
     if(a >= b)
     {
@@ -11,3 +12,4 @@ function test(byte a)
         float;
     }
 }
+

@@ -1,11 +1,6 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
-typedef struct lexeme{
-    char* label;
-    int type;
-} lexeme;
-
 typedef enum {
     ident, number,
     strnliteral, charliteral,
@@ -21,7 +16,14 @@ typedef enum {
     comma, dot,
     begin, end,
     defsym, structsym,
-    returnsym, elsesym
+    returnsym, elsesym,
+    assign
 } Symbol;
+
+typedef struct lexeme{
+    char* label;
+    Symbol type;
+} lexeme;
+
 
 #endif

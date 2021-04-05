@@ -16,7 +16,11 @@ lexeme_dynarr* lexer_lexify(char* code)
 
     while(!eof(char_curr()))
     {
-        while(is_space(char_curr())) char_next();
+        while(is_space(char_curr()))
+        {
+            spaces_removed++;
+            char_next();
+        }
 
         if(g_debug_mode & OUTPUT_LEXER || g_debug_mode & OUTPUT_ALL)
         {
@@ -41,6 +45,8 @@ lexeme_dynarr* lexer_lexify(char* code)
         char_next(); //To future me: never ever don't you even think about removing this one... unless you want to wait for a few minutes to reboot your pc ofc
     }
 
+    printf(COLOR_YELLOW "Bytes removed: " COLOR_RESET " %d\n", spaces_removed);
+
     return tokens;
 }
 
@@ -50,15 +56,27 @@ void char_next(){ ptr++;}
 
 void skip_white_space()
 {
-    while(is_space(char_curr())) char_next();
+    while(is_space(char_curr()))
+    {
+        spaces_removed++;
+        char_next();
+    }
 }
 void skip_comment_line()
 {
-    while(char_curr() != '\n') char_next();
+    while(char_curr() != '\n') 
+    {
+        spaces_removed++;
+        char_next();
+    }
 }
 void skip_comment_block()
 {
-    while(char_curr() != '*' && char_peek() != '/') char_next();
+    while(char_curr() != '*' && char_peek() != '/') 
+    {
+        spaces_removed++;
+        char_next();
+    }
 }
 
 lexeme identifier()
@@ -69,6 +87,7 @@ lexeme identifier()
     char* end = ptr+1;
     t.label = malloc(sizeof(char) * (end-start));
     strncpy(t.label, start, (end-start));
+    
     if(is_keyword(t.label))
     {
 
@@ -180,6 +199,10 @@ lexeme operator_literal()
         t.type = slash;
     }
     else if(!strcmp(t.label, "="))
+    {
+        t.type = assign;
+    }
+    else if(!strcmp(t.label, "=="))
     {
         t.type = eql;
     }

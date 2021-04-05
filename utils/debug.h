@@ -1,6 +1,8 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
+#include <stdio.h>
+
 typedef unsigned int uint32;
 typedef unsigned char ubyte;
 
@@ -23,5 +25,10 @@ uint32 g_debug_mode;
 #define COLOR_MAGENTA "\e[35m"
 #define COLOR_CYAN    "\e[36m"
 #define COLOR_RESET   "\e[0m"
+
+const char* type_keyword[31];
+
+void g_error(const char msg[]);
+void g_log(const char msg[]);
 
 #endif

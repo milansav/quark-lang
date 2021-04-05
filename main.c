@@ -5,7 +5,7 @@
 #include "lexer/lexer.h"
 #include "utils/debug.h"
 
-const char* type_keyword[] = 
+const char* type_keyword[] =
 {
     "ident", "number",
     "strnliteral", "charliteral",
@@ -21,7 +21,8 @@ const char* type_keyword[] =
     "comma", "dot",
     "begin", "end",
     "defsym", "structsym",
-    "returnsym", "elsesym"};
+    "returnsym", "elsesym", "assign"
+};
 
 int main(int argc, char *argv[])
 {
@@ -50,7 +51,7 @@ int main(int argc, char *argv[])
     
     if(g_debug_mode & OUTPUT_ALL)
     {
-    printf("Size of the file %dbytes\n", size);
+        printf("Size of the file %dbytes\n", size);
     }
 
     char* code = malloc(size);
@@ -67,7 +68,8 @@ int main(int argc, char *argv[])
         }
     }
 
-    syntax_tree* tree = parse_code(arr);
+    parser_construct(arr);
+    void* tree = parse_code();
 
     lexeme_dynarr_remove(arr);
     free(code);
