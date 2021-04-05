@@ -110,6 +110,7 @@ int expect(Symbol s)
 	if(accept(s)) return 1;
 	g_error(__FILE__ ": expect: unexpected symbol");
 	printf("Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+	printf("Expected: %s\n", type_keyword[s]);
 	return 0;
 }
 
@@ -167,12 +168,14 @@ void condition()
 {
 	g_log(__FILE__ ": condition");
 	printf("Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+
 	bool equal = sym == eql;
 	bool nequal = sym == neq;
 	bool less = sym == lss;
 	bool lequal = sym == leq;
 	bool greater = sym == gtr;
 	bool gequal = sym == geq;
+	
 	expression();
 	if(equal || nequal || less || lequal || greater || gequal)
 	{
@@ -209,8 +212,11 @@ void statement()
 		do
 		{
 			expect(ident);
+			if(accept(assign))
+			{
+				expression();
+			}
 		} while (accept(comma));
-		expect(semicolon);
 	}
 	else if(accept(ifsym))
 	{

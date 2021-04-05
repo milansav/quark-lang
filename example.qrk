@@ -1,10 +1,7 @@
 function test(byte a)
 {
     byte b = a + 5;
-    qrk.print(b);
-    
-    byte character = 'A';
-    string characters = "AAAAA";
+    print(b);
     
     if(a >= b)
     {
