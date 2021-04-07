@@ -45,13 +45,13 @@ void node_statement_list_add(node_statement_list* list, node* item)
 
 	if(!item)
 	{
-		g_error(__FILE__ ": Node statement list: Input item can't be null\n");
+		g_errorln(__FILE__ ": Node statement list: Input item can't be null\n");
 		return;
 	}
 
 	if(!list)
 	{
-		g_error(__FILE__": Node statement list: Input list can't be null\n");
+		g_errorln(__FILE__": Node statement list: Input list can't be null\n");
 		return;
 	}
 
@@ -76,21 +76,16 @@ void node_statement_list_remove(node_statement_list* list)
 
 void* parse_code(void)
 {
-	/*lexeme* start = lexemes_array;
-	while(lexemes_array->label)
-	{
-		printf("%s %s\n", type_keyword[sym], lexemes_array->label);
-		nextsym();
-	}
-	lexemes_array = start;
-	sym = lexemes_array->type;*/
 	program();
 }
 
 void nextsym()
 {
-	lexemes_array++;
-	sym = lexemes_array->type;
+	if((lexemes_array+1)->label)
+	{
+		lexemes_array++;
+		sym = lexemes_array->type;
+	}
 }
 
 int accept(Symbol s)
@@ -98,7 +93,7 @@ int accept(Symbol s)
 	if(sym == s)
 	{
 		g_log(__FILE__ ": accept: accepted");
-		printf("Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+		printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
 		nextsym();
 		return 1;
 	}
@@ -108,23 +103,27 @@ int accept(Symbol s)
 int expect(Symbol s)
 {
 	if(accept(s)) return 1;
-	g_error(__FILE__ ": expect: unexpected symbol");
-	printf("Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
-	printf("Expected: %s\n", type_keyword[s]);
+
+	g_error(__FILE__ ": expect: unexpected symbol, expected: ");
+	g_error(type_keyword[s]);
+	g_error(", got: ");
+	g_errorln(type_keyword[sym]);
+
 	return 0;
 }
 
 void factor()
 {
 	g_log(__FILE__ ": factor");
-	printf("Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+	printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+
 	if(accept(ident))
 	{
-		;
+		return;
 	}
 	else if(accept(number))
 	{
-		;
+		return;
 	}
 	else if(accept(lparen))
 	{
@@ -133,8 +132,8 @@ void factor()
 	}
 	else
 	{
-		g_error(__FILE__ ": factor: syntax error\n");
-		printf("Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+		g_errorln(__FILE__ ": factor: syntax error\n");
+		printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
 		nextsym();
 	}
 }
@@ -142,7 +141,8 @@ void factor()
 void term()
 {
 	g_log(__FILE__ ": term");
-	printf("Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+	printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+
 	factor();
 	while(sym == times || sym == slash)
 	{
@@ -154,9 +154,12 @@ void term()
 void expression()
 {
 	g_log(__FILE__ ": expression");
-	printf("Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+	printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+
 	if(sym == plus || sym == minus) nextsym();
+	
 	term();
+
 	while(sym == plus || sym == minus)
 	{
 		nextsym();
@@ -167,31 +170,33 @@ void expression()
 void condition()
 {
 	g_log(__FILE__ ": condition");
-	printf("Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+	printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
 
-	bool equal = sym == eql;
-	bool nequal = sym == neq;
-	bool less = sym == lss;
-	bool lequal = sym == leq;
-	bool greater = sym == gtr;
-	bool gequal = sym == geq;
 	
 	expression();
+
+	bool equal = accept(eql);
+	bool nequal = accept(neq);
+	bool less = accept(lss);
+	bool lequal = accept(leq);
+	bool greater = accept(gtr);
+	bool gequal = accept(geq);
+
 	if(equal || nequal || less || lequal || greater || gequal)
 	{
-		nextsym();
 		expression();
 	}
 	else
 	{
-		g_error(__FILE__ ": condition: invalid operator\n");
+		g_errorln(__FILE__ ": condition: invalid operator\n");
+		printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
 	}
 }
 
 void statement()
 {
 	g_log(__FILE__ ": statement");
-	printf("Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+	printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
 	if(accept(ident))
 	{
 		if(accept(assign))
@@ -207,6 +212,16 @@ void statement()
 			expect(rparen);
 		}
 	}
+	else if(accept(begin))
+	{
+		g_logln(__FILE__ ": begin statement");
+
+		do
+		{
+			statement();
+		} while (accept(semicolon));
+		expect(end);
+	}
 	else if(accept(varsym))
 	{
 		do
@@ -220,14 +235,16 @@ void statement()
 	}
 	else if(accept(ifsym))
 	{
+		expect(lparen);
 		condition();
-		expect(begin);
+		expect(rparen);
 		statement();
 	}
 	else if(accept(whilesym))
 	{
+		expect(lparen);
 		condition();
-		expect(begin);
+		expect(rparen);
 		statement();
 	}
 	else if(accept(funcsym))
@@ -242,50 +259,17 @@ void statement()
 		expect(rparen);
 		statement();
 	}
-	else if(accept(begin))
-	{
-		do
-		{
-			statement();
-		} while (accept(semicolon));
-		expect(end);
-	}
 	else
 	{
-		g_error(__FILE__ ": statement: syntax error");
-		printf("Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+		g_error(__FILE__ ": statement: syntax error, unexpected token");
+		printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
 		nextsym();
 	}
-}
-
-//TODO: update grammar
-void block()
-{
-	g_log(__FILE__ ": block");
-	printf("Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
-	if(accept(constsym))
-	{
-		do {
-			expect(ident);
-			expect(assign);
-			expect(number);
-		} while(accept(comma));
-		expect(semicolon);
-	}
-	if(accept(varsym))
-	{
-		do
-		{
-			expect(ident);
-		} while (accept(comma));
-		expect(semicolon);
-	}
-	statement();
 }
 
 void program()
 {
 	g_log(__FILE__ ": program");
-	printf("Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
-	block();
+	printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+	statement();
 }

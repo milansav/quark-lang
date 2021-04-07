@@ -22,11 +22,6 @@ lexeme_dynarr* lexer_lexify(char* code)
             char_next();
         }
 
-        if(g_debug_mode & OUTPUT_LEXER || g_debug_mode & OUTPUT_ALL)
-        {
-        printf("Curr: %c\n", char_curr());
-        }
-
         if(char_curr() == '/' && char_peek() == '/') skip_comment_line();
         if(char_curr() == '/' && char_peek() == '*') skip_comment_block();
 
@@ -285,7 +280,8 @@ bool is_keyword(char* c)
 }
 bool is_operator(char c)
 {
-    return (c == '+') || (c == '-') || (c == '*') || (c == '/') || (c == '%') || (c == '=');
+    return (c == '+') || (c == '-') || (c == '*') || (c == '/') || (c == '%') || (c == '=') ||
+            (c == '>')|| (c == '<') || (c == '!');
 }
 bool is_other(char c)
 {

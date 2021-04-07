@@ -26,9 +26,9 @@ uint32 g_debug_mode;
 #define COLOR_CYAN    "\e[36m"
 #define COLOR_RESET   "\e[0m"
 
-const char* type_keyword[31];
-
 void g_error(const char msg[]);
+void g_errorln(const char msg[]);
 void g_log(const char msg[]);
+void g_logln(const char msg[]);
 
 #endif

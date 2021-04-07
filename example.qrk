@@ -1,12 +1,7 @@
 function test(byte a)
 {
-    byte b = a + 5;
-    print(b);
-    
-    if(a >= b)
+    if(a > b)
     {
-        const;
-        float;
+        print(Hello, There);
     }
 }
-

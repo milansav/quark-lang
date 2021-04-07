@@ -45,8 +45,8 @@ void factor(void);
 void term(void);
 void expression(void);
 void condition(void);
+void block();
 void statement(void);
-void block(void);
 void program(void);
 
 #endif
