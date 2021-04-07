@@ -193,7 +193,7 @@ void condition()
 	}
 }
 
-void statement()
+int statement()
 {
 	g_log(__FILE__ ": statement");
 	printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
@@ -202,6 +202,7 @@ void statement()
 		if(accept(assign))
 		{
 			expression();
+			expect(semicolon);
 		}
 		else if(accept(lparen))
 		{
@@ -210,16 +211,19 @@ void statement()
 				expect(ident);
 			} while (accept(comma));
 			expect(rparen);
+			expect(semicolon);
 		}
+	}
+	else if(sym == end)
+	{
+		return 0;
 	}
 	else if(accept(begin))
 	{
 		g_logln(__FILE__ ": begin statement");
 
-		do
-		{
-			statement();
-		} while (accept(semicolon));
+		while(statement());
+
 		expect(end);
 	}
 	else if(accept(varsym))
@@ -232,6 +236,7 @@ void statement()
 				expression();
 			}
 		} while (accept(comma));
+		expect(semicolon);
 	}
 	else if(accept(ifsym))
 	{
@@ -261,15 +266,22 @@ void statement()
 	}
 	else
 	{
-		g_error(__FILE__ ": statement: syntax error, unexpected token");
-		printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
+		g_error(__FILE__ ": statement: syntax error, unexpected symbol: ");
+		g_error("Type: ");
+		g_error(type_keyword[sym]);
+		g_error(" Label: ");
+		g_errorln(lexemes_array->label);
+
 		nextsym();
+		return 0;
 	}
+
+	return 1;
 }
 
 void program()
 {
 	g_log(__FILE__ ": program");
 	printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
-	statement();
+	while(statement());
 }

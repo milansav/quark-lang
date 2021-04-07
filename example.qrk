@@ -1,7 +1,27 @@
 function test(byte a)
 {
+
+    byte a = 15, b = 6;
+
     if(a > b)
     {
         print(Hello, There);
+        print(Mathis, is, a, legend);
+    }
+
+    while(Doomer == great)
+    {
+        print(Hi, Doomer);
+    }
+}
+
+function test2(byte b)
+{
+    while(b == 1)
+    {
+        if(yes == yes)
+        {
+            b = b + 1;
+        }
     }
 }
