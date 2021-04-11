@@ -3,6 +3,7 @@
 
 #Visual studio code
 .vscode
+.VSCodeCounter/
 
 # Compiled Object files
 *.slo
