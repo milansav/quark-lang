@@ -5,14 +5,15 @@
 What is left to do:  
   
 - Parser  
-  - Syntax analyser 
 - Preprocessor  
   - Checking if any undeclared variables, functions exist  
   - Macros  
   - Linker  
 - Compiler  
-  - Compiler itself  
-  - Labeler for functions, ifs, loops  
+
+What is already done:  
+- Lexer  
+- Syntax analyser  
 
 How to install:  
   
