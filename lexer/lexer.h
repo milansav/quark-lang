@@ -3,9 +3,6 @@
 
 #include <stdbool.h>
 
-char* ptr;
-unsigned int spaces_removed;
-
 struct lexeme_dynarr* lexer_lexify(char* code);
 
 char char_curr();

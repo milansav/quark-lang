@@ -5,7 +5,7 @@
 #include "lexer/lexer.h"
 #include "utils/debug.h"
 
-const char* type_keyword[] =
+const char type_keyword[31][11] =
 {
     "ident", "number",
     "strnliteral", "charliteral",
@@ -24,9 +24,25 @@ const char* type_keyword[] =
     "returnsym", "elsesym", "assign"
 };
 
+const char keywords[11][9] =
+{
+"function\0",
+"if",
+"else",
+"return",
+"while",
+"byte",
+"def",
+"struct",
+"int",
+"float",
+"const"
+};
+
 int main(int argc, char *argv[])
 {
     //Changing language settings
+    uint32 g_debug_mode;
     g_debug_mode += OUTPUT_PARSER;
     g_debug_mode += OUTPUT_ALL;
     //End of settings
@@ -48,7 +64,7 @@ int main(int argc, char *argv[])
     fseek(fp, 0, SEEK_SET);
 
     uint32 size = (end-start);
-    
+
     if(g_debug_mode & OUTPUT_ALL)
     {
         printf("Size of the file %dbytes\n", size);

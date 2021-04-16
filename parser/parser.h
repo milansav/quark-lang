@@ -6,15 +6,11 @@
 #include "../dynarr/dynarr.h"
 #include "../utils/debug.h"
 #include <string.h>
-
 #include <stdio.h>
-
-lexeme* lexemes_array;
-Symbol sym;
 
 typedef struct node
 {
-	
+
 } node;
 
 typedef struct node_statement_list

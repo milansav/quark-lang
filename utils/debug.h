@@ -6,7 +6,7 @@
 typedef unsigned int uint32;
 typedef unsigned char ubyte;
 
-uint32 g_debug_mode;
+extern uint32 g_debug_mode;
 
 #define OUTPUT_DEBUG            0   //Warnings, errors etc.. from parser, compiler etc..
 #define NO_OUTPUT               1   //Output absolutely nothing
@@ -26,9 +26,9 @@ uint32 g_debug_mode;
 #define COLOR_CYAN    "\e[36m"
 #define COLOR_RESET   "\e[0m"
 
-void g_error(const char msg[]);
-void g_errorln(const char msg[]);
-void g_log(const char msg[]);
-void g_logln(const char msg[]);
+void g_error(const char **msg);
+void g_errorln(const char **msg);
+void g_log(const char **msg);
+void g_logln(const char **msg);
 
 #endif

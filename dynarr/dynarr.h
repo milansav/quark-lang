@@ -2,7 +2,13 @@
 #define DYNARR_H
 
 #include "../lexer/token.h"
+#include "../utils/debug.h"
 #include <stdlib.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
+extern uint32 g_debug_mode;
 
 typedef struct lexeme_dynarr {
     unsigned int size;

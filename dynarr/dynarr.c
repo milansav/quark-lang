@@ -1,11 +1,6 @@
 #include "dynarr.h"
-#include "../lexer/token.h"
-#include "../utils/debug.h"
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-
+uint32 g_debug_mode;
 
 void lexeme_dynarr_construct(lexeme_dynarr* dynarr)
 {

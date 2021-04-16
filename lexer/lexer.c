@@ -1,11 +1,15 @@
 #include "lexer.h"
 #include "token.h"
 #include "../dynarr/dynarr.h"
-#include "../utils/keywords.h"
 #include "../utils/debug.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+
+char* ptr;
+uint32 spaces_removed;
+
+extern const char keywords[11][9];
 
 lexeme_dynarr* lexer_lexify(char* code)
 {
@@ -37,7 +41,7 @@ lexeme_dynarr* lexer_lexify(char* code)
         else
         if(is_other(char_curr())) lexeme_dynarr_add(tokens, other());
 
-        char_next(); //To future me: never ever don't you even think about removing this one... unless you want to wait for a few minutes to reboot your pc ofc
+        char_next();
     }
 
     printf(COLOR_YELLOW "Bytes removed: " COLOR_RESET " %d\n", spaces_removed);
@@ -45,7 +49,7 @@ lexeme_dynarr* lexer_lexify(char* code)
     return tokens;
 }
 
-char char_curr(){ return *ptr;} 
+char char_curr(){ return *ptr;}
 char char_peek(){ return *(ptr+1);}
 void char_next(){ ptr++;}
 
@@ -59,7 +63,7 @@ void skip_white_space()
 }
 void skip_comment_line()
 {
-    while(char_curr() != '\n') 
+    while(char_curr() != '\n')
     {
         spaces_removed++;
         char_next();
@@ -67,7 +71,7 @@ void skip_comment_line()
 }
 void skip_comment_block()
 {
-    while(char_curr() != '*' && char_peek() != '/') 
+    while(char_curr() != '*' && char_peek() != '/')
     {
         spaces_removed++;
         char_next();
@@ -82,7 +86,7 @@ lexeme identifier()
     char* end = ptr+1;
     t.label = malloc(sizeof(char) * (end-start));
     strncpy(t.label, start, (end-start));
-    
+
     if(is_keyword(t.label))
     {
 
@@ -272,8 +276,9 @@ bool is_identifier(char c)
 }
 bool is_keyword(char* c)
 {
-    for(uint32 i = 0; i < (sizeof(keywords)/sizeof(char*)); i++)
+    for(uint32 i = 0; i < sizeof(keywords)/sizeof(keywords[0]); i++)
     {
+        printf("%s\n", keywords[i]);
         if(!strcmp(c, keywords[i])) return true;
     }
     return false;

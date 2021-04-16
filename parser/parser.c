@@ -1,6 +1,8 @@
 #include "parser.h"
 
-const char* type_keyword[];
+lexeme* lexemes_array;
+Symbol sym;
+extern const char * type_keyword[31][11];
 
 lexeme* lexeme_curr()
 {
@@ -70,13 +72,15 @@ void node_statement_list_remove(node_statement_list* list)
 
 	for(uint32 i = 0; i < list->count; i++)
 	{
-		
+
 	}
 }
 
 void* parse_code(void)
 {
 	program();
+
+	return NULL;
 }
 
 void nextsym()
@@ -157,7 +161,7 @@ void expression()
 	printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
 
 	if(sym == plus || sym == minus) nextsym();
-	
+
 	term();
 
 	while(sym == plus || sym == minus)
@@ -172,7 +176,7 @@ void condition()
 	g_log(__FILE__ ": condition");
 	printf(" Type: %s Label: %s\n", type_keyword[sym], lexemes_array->label);
 
-	
+
 	expression();
 
 	bool equal = accept(eql);
