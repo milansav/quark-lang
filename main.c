@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include "dynarr/dynarr.h"
 #include "parser/parser.h"
 #include "lexer/lexer.h"
