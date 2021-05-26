@@ -2,8 +2,8 @@
 
 all : build
 
-build : main.o dynarr.o lexer.o parser.o debug.o
-	gcc main.o dynarr.o lexer.o parser.o debug.o -o quark.out
+build : main.o dynarr.o lexer.o parser.o debug.o keywords.o cstring.o
+	gcc main.o dynarr.o lexer.o parser.o debug.o keywords.o cstring.o -o quark.out
 
 remake : clear clean build
 
@@ -20,7 +20,13 @@ parser.o : ./parser/parser.c
 	gcc -c ./parser/parser.c
 
 debug.o : ./utils/debug.c
-	gcc -c ./utils/debug.c 
+	gcc -c ./utils/debug.c
+
+keywords.o : ./utils/keywords.c
+	gcc -c ./utils/keywords.c
+
+cstring.o : ./utils/cstring.c
+	gcc -c ./utils/cstring.c
 
 clean:
 	if test -f "*.o"; then rm *.o; fi

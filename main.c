@@ -4,40 +4,9 @@
 #include "parser/parser.h"
 #include "lexer/lexer.h"
 #include "utils/debug.h"
+#include "utils/keywords.h"
 
-const char type_keyword[31][11] =
-{
-    "ident", "number",
-    "strnliteral", "charliteral",
-    "lparen", "rparen",
-    "times", "slash",
-    "plus", "minus",
-    "eql", "neq",
-    "lss", "leq",
-    "gtr", "geq",
-    "funcsym", "semicolon",
-    "ifsym", "whilesym",
-    "constsym", "varsym",
-    "comma", "dot",
-    "begin", "end",
-    "defsym", "structsym",
-    "returnsym", "elsesym", "assign"
-};
-
-const char keywords[11][9] =
-{
-"function\0",
-"if",
-"else",
-"return",
-"while",
-"byte",
-"def",
-"struct",
-"int",
-"float",
-"const"
-};
+string* main_type_keywords;
 
 int main(int argc, char *argv[])
 {
@@ -46,6 +15,8 @@ int main(int argc, char *argv[])
     g_debug_mode += OUTPUT_PARSER;
     g_debug_mode += OUTPUT_ALL;
     //End of settings
+
+    main_type_keywords = type_keywords_get();
 
     FILE *fp;
 
@@ -80,7 +51,7 @@ int main(int argc, char *argv[])
     {
         for(uint32 i = 0; i < arr->count; i++)
         {
-            printf(COLOR_YELLOW "Type:" COLOR_RESET "%s." COLOR_YELLOW "Label:" COLOR_RESET "%s\n", type_keyword[arr->token_arr[i].type], arr->token_arr[i].label);
+            printf(COLOR_YELLOW "Type:" COLOR_RESET "%s." COLOR_YELLOW "Label:" COLOR_RESET "%s\n", string_get_value(&main_type_keywords[arr->token_arr[i].type]), arr->token_arr[i].label);
         }
     }
 

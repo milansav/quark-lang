@@ -2,6 +2,7 @@
 #define LEXER_H
 
 #include <stdbool.h>
+#include "../utils/keywords.h"
 
 struct lexeme_dynarr* lexer_lexify(char* code);
 

@@ -26,9 +26,9 @@ extern uint32 g_debug_mode;
 #define COLOR_CYAN    "\e[36m"
 #define COLOR_RESET   "\e[0m"
 
-void g_error(const char **msg);
-void g_errorln(const char **msg);
-void g_log(const char **msg);
-void g_logln(const char **msg);
+void g_error(char * msg);
+void g_errorln(char * msg);
+void g_log(char * msg);
+void g_logln(char * msg);
 
 #endif

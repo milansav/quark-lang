@@ -9,11 +9,13 @@
 char* ptr;
 uint32 spaces_removed;
 
-extern const char keywords[11][9];
+string* lex_keywords;
 
 lexeme_dynarr* lexer_lexify(char* code)
 {
     ptr = code;
+
+    lex_keywords = keywords_get();
 
     lexeme_dynarr* tokens = (lexeme_dynarr*)malloc(sizeof(lexeme_dynarr));
     lexeme_dynarr_construct(tokens);
@@ -276,10 +278,9 @@ bool is_identifier(char c)
 }
 bool is_keyword(char* c)
 {
-    for(uint32 i = 0; i < sizeof(keywords)/sizeof(keywords[0]); i++)
+    for(uint32 i = 0; i < KEYWORDS_COUNT; i++)
     {
-        printf("%s\n", keywords[i]);
-        if(!strcmp(c, keywords[i])) return true;
+        if(!strcmp(c, string_get_value(&lex_keywords[i]))) return true;
     }
     return false;
 }
