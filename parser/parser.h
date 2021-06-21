@@ -10,7 +10,12 @@
 
 typedef struct node
 {
-
+	uint32 type;
+	union data
+	{
+		/* data */
+	};
+	
 } node;
 
 typedef struct node_statement_list

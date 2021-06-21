@@ -7,6 +7,7 @@
 #include "utils/keywords.h"
 
 string* main_type_keywords;
+extern uint32 g_debug_mode;
 
 int main(int argc, char *argv[])
 {
@@ -60,5 +61,6 @@ int main(int argc, char *argv[])
 
     lexeme_dynarr_remove(arr);
     free(code);
+    fclose(fp);
     return 0;
 }
