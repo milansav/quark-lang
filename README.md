@@ -1,6 +1,6 @@
 # quark-lang
 ![alt text](https://github.com/milansav/quark-lang/blob/main/raw/logo.png "logo.png")  
-## **Quark** is a low-level compiled programming-language  
+## **Quark** is a generic programming-language running in a VM
   
 What is left to do:  
   
